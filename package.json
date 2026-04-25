@@ -1,0 +1,54 @@
+{
+  "name": "@batthewz/response-ui-css",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Design tokens, themes, and component CSS for the response-ui design system. Tailwind v4 CSS-first.",
+  "sideEffects": ["*.css"],
+  "files": ["src", "scripts", "docs", "AGENTS.md", "README.md", "LICENSE"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BatthewZ/response-ui-css.git"
+  },
+  "homepage": "https://github.com/BatthewZ/response-ui-css#readme",
+  "bugs": "https://github.com/BatthewZ/response-ui-css/issues",
+  "author": "BatthewZ",
+  "exports": {
+    ".": {
+      "style": "./src/index.css",
+      "default": "./src/index.css"
+    },
+    "./no-fonts": {
+      "style": "./src/index-no-fonts.css",
+      "default": "./src/index-no-fonts.css"
+    },
+    "./fonts": {
+      "style": "./src/fonts.css",
+      "default": "./src/fonts.css"
+    },
+    "./tokens": {
+      "style": "./src/tokens/index.css",
+      "default": "./src/tokens/index.css"
+    },
+    "./themes/events": {
+      "style": "./src/themes/events.css",
+      "default": "./src/themes/events.css"
+    },
+    "./themes/grimdark": {
+      "style": "./src/themes/grimdark.css",
+      "default": "./src/themes/grimdark.css"
+    },
+    "./themes/tech": {
+      "style": "./src/themes/tech.css",
+      "default": "./src/themes/tech.css"
+    },
+    "./theme-template": {
+      "style": "./src/_theme-template.css",
+      "default": "./src/_theme-template.css"
+    }
+  },
+  "bin": {
+    "theme-from-json": "./scripts/theme-from-json.mjs"
+  },
+  "keywords": ["design-system", "tailwind", "tailwindcss-v4", "tokens", "themes", "css", "oklch"],
+  "license": "MIT"
+}

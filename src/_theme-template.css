@@ -1,0 +1,92 @@
+/* Theme template — copy this file, rename it, change the [data-theme="my-theme"]
+   selector, and customize the values below. Then `@import` it in your app.css
+   AFTER `@import "@batthewz/response-ui-css";`.
+
+   Required variables (semantics) are defined here. Optional variables are
+   listed at the bottom — if you omit them they fall through to the defaults
+   on `:root`. See the existing themes for full examples:
+       node_modules/@batthewz/response-ui-css/src/themes/grimdark.css
+       node_modules/@batthewz/response-ui-css/src/themes/events.css
+       node_modules/@batthewz/response-ui-css/src/themes/tech.css                 */
+
+:root[data-theme="my-theme"] {
+  /* Light or dark UI — drives form-control colors, scrollbar, etc. */
+  color-scheme: light; /* or "dark" */
+
+  /* ─── Fonts ─────────────────────────────────────────────────────────────── */
+  --DEFAULT-FONT: "Inter", sans-serif;
+  --DEFAULT-MONO-FONT: "JetBrains Mono", monospace;
+  --HEADING-FONT: "Inter", sans-serif;
+  --HEADING-LETTER-SPACING: normal;
+  --HEADING-TEXT-TRANSFORM: none;
+
+  /* ─── Canvas (page background) ──────────────────────────────────────────── */
+  --C-CANVAS: oklch(0.99 0 0);
+
+  /* ─── Brand ─────────────────────────────────────────────────────────────── */
+  --C-PRIMARY: oklch(0.30 0.04 260);
+  --C-PRIMARY-HOVER: oklch(0.25 0.04 260);
+  --C-PRIMARY-ACTIVE: oklch(0.20 0.04 260);
+  --C-SECONDARY: oklch(0.93 0.01 256);
+  --C-SECONDARY-HOVER: oklch(0.88 0.02 256);
+  --C-ACCENT: oklch(0.55 0.22 263);
+  --C-ACCENT-HOVER: oklch(0.50 0.22 263);
+
+  /* ─── Surfaces (cards, sidebars, popovers) ──────────────────────────────── */
+  --C-SURFACE-0: oklch(1.00 0 0);
+  --C-SURFACE-1: oklch(0.98 0 0);
+  --C-SURFACE-2: oklch(0.96 0 0);
+  --C-SURFACE-3: oklch(0.93 0 0);
+
+  /* ─── Text ──────────────────────────────────────────────────────────────── */
+  --C-TEXT-PRIMARY: oklch(0.20 0 0);
+  --C-TEXT-SECONDARY: oklch(0.40 0 0);
+  --C-TEXT-MUTED: oklch(0.55 0 0);
+  --C-TEXT-INVERSE: oklch(0.99 0 0);
+  --C-TEXT-ON-PRIMARY: oklch(0.99 0 0);
+  --C-TEXT-ON-ACCENT: oklch(0.99 0 0);
+
+  /* ─── Borders ───────────────────────────────────────────────────────────── */
+  --C-BORDER-DEFAULT: oklch(0.90 0 0);
+  --C-BORDER-STRONG: oklch(0.80 0 0);
+  --C-BORDER-FOCUS: oklch(0.55 0.22 263);
+
+  /* ─── Status ────────────────────────────────────────────────────────────── */
+  --C-STATUS-ERROR: oklch(0.55 0.22 27);
+  --C-STATUS-ERROR-BG: oklch(0.96 0.03 27);
+  --C-STATUS-SUCCESS: oklch(0.55 0.18 145);
+  --C-STATUS-SUCCESS-BG: oklch(0.96 0.04 145);
+  --C-STATUS-WARNING: oklch(0.65 0.16 75);
+  --C-STATUS-WARNING-BG: oklch(0.97 0.04 80);
+  --C-STATUS-INFO: oklch(0.55 0.15 240);
+  --C-STATUS-INFO-BG: oklch(0.96 0.03 240);
+
+  /* ───────────────────────────────────────────────────────────────────────── */
+  /*  Optional — uncomment & customize. Defaults on :root apply if omitted.   */
+  /* ───────────────────────────────────────────────────────────────────────── */
+
+  /* Radii */
+  /* --RADIUS-SM: 0.25rem;
+     --RADIUS-MD: 0.5rem;
+     --RADIUS-LG: 0.75rem;
+     --RADIUS-XL: 1rem; */
+
+  /* Shadows */
+  /* --SHADOW-SM: 0 1px 2px 0 oklch(0 0 0 / 0.05);
+     --SHADOW-MD: 0 4px 6px -1px oklch(0 0 0 / 0.1);
+     --SHADOW-LG: 0 10px 15px -3px oklch(0 0 0 / 0.1); */
+
+  /* Typography weights */
+  /* --Bold-Weight: 700;
+     --Semibold-Weight: 600; */
+
+  /* Motion */
+  /* --MOTION-DURATION-ENTER: 240ms;
+     --MOTION-DURATION-EXIT: 180ms;
+     --MOTION-EASE-ENTER: cubic-bezier(0.16, 1, 0.3, 1);
+     --MOTION-EASE-EXIT: cubic-bezier(0.7, 0, 1, 0.5); */
+
+  /* Page transitions — reference @keyframes you define elsewhere */
+  /* --MOTION-PAGE-TRANSITION-IN: my-page-in;
+     --MOTION-PAGE-TRANSITION-OUT: my-page-out; */
+}

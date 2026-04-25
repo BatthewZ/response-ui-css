@@ -1,0 +1,18 @@
+/* @batthewz/response-ui-css — public entry.
+   Imports Tailwind v4 + Google Fonts + all design tokens, themes, responsive,
+   animation and component CSS. Consumers do `@import "@batthewz/response-ui-css";`
+   in their own app.css.                                                       */
+
+@import "./fonts.css";
+@import "tailwindcss";
+@import "./tokens/index.css";
+@import "./responsive/index.css";
+@import "./components/index.css";
+@import "./animations/index.css";
+@import "./themes/index.css";
+@import "./base.css";
+
+/* Tailwind v4 — scan compiled React package for utility classes.
+   The path is relative to this file inside the consumer's node_modules.       */
+@source "../../response-ui-react-components/src/**/*.{ts,tsx}";
+@source "../../response-ui-react-components/dist/**/*.{js,mjs,cjs}";
