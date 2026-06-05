@@ -1,206 +1,155 @@
-# AGENTS — @batthewz/response-ui-css
-
-Machine-readable reference for AI assistants working with this package. Concise, exact, opinionated.
+# @batthewz/response-ui-css
 
 ## What this is
 
-A pure-CSS design system. Tailwind v4 (CSS-first config — no `tailwind.config.js`). All tokens live as CSS custom properties on `:root`; themes override them under `:root[data-theme="…"]`. Tokens are exposed to Tailwind utilities via `@theme inline`.
+A pure-CSS design system. Tailwind v4, CSS-first (no `tailwind.config.js`). Tokens live as CSS custom properties on `:root`; themes override them under `:root[data-theme="…"]`. Tokens are re-exposed as Tailwind utilities via `@theme inline`. No JavaScript ships from this package.
 
-No JavaScript ships in this package.
+## Why we want this
 
-## Install + import contract
+- **Unified theme.** One vocabulary of colour, type, spacing, motion, radius, shadow — every component in the app speaks it. No ad-hoc hex codes, no orphan `px` values.
+- **Easy reskinning.** A theme is one CSS file overriding ~30 custom properties. Flip `<html data-theme="…">` and the whole app changes. No component edits, no rebuilds.
+- **Responsive by default.** Spacing (`--R-SIZE-*`) and text (`--H*`, `--BodyText-*`) tokens carry a base value AND a `@media (width >= 40rem)` override. Using them means the component scales at the 640px breakpoint for free.
+
+If you are about to write a raw hex code, a raw `rem` value, or a Tailwind utility like `p-4`/`text-sm`/`bg-blue-500` — stop. There is a token for it.
+
+## How to use it
+
+### 1. Read [src/\_theme-template.css](src/_theme-template.css)
+
+That file is the source of truth for the theme contract: every required and optional custom property, with semantic comments. Read it before writing CSS or generating utility classes — it tells you what the design system actually models.
+
+### 2. When writing CSS
+
+Use the `--C-*`, `--R-SIZE-*`, `--H*`, `--BodyText-*`, `--RADIUS-*`, `--SHADOW-*`, `--MOTION-*` custom properties wherever they fit. Anything authored against these tokens automatically picks up theme overrides and the responsive breakpoint.
+
+```css
+.thing {
+  background: var(--C-SURFACE-1);
+  color: var(--C-TEXT-PRIMARY);
+  padding: var(--R-SIZE-3);
+  border: 1px solid var(--C-BORDER-DEFAULT);
+  border-radius: var(--RADIUS-MD);
+  transition: background var(--DURATION-FAST) var(--MOTION-EASE-ENTER);
+}
+```
+
+### 3. When writing inline Tailwind classes
+
+Every token below is exposed as a Tailwind utility via `@theme inline` blocks in [src/tokens/](src/tokens/) and [src/responsive/](src/responsive/). Prefer these over Tailwind defaults — they pick up theme overrides and the 640px responsive bump. If your consumer uses `tailwind-merge`, extend its config so it recognises the custom `r1`–`r6` spacing, `h1`–`h6` / `body-1`–`3` text, and `fg-*` colour groups; otherwise conflicting utilities won't collapse correctly.
+
+**Colour — brand, surface, text, border, status**
+
+```
+bg-canvas
+bg-primary  bg-primary-hover  bg-primary-active
+bg-secondary  bg-secondary-hover
+bg-accent  bg-accent-hover
+bg-surface-0  bg-surface-1  bg-surface-2  bg-surface-3
+bg-status-error  bg-status-error-bg
+bg-status-success  bg-status-success-bg
+bg-status-warning  bg-status-warning-bg
+bg-status-info  bg-status-info-bg
+
+text-fg-primary  text-fg-secondary  text-fg-muted  text-fg-inverse
+text-fg-on-primary  text-fg-on-accent
+text-status-error  text-status-success  text-status-warning  text-status-info
+(also: text-primary, text-accent, text-canvas, text-surface-*  — same colour palette)
+
+border-border-default  border-border-strong  border-border-focus
+ring-border-default  ring-border-focus
+(also: border-primary, border-accent, border-status-error, etc.)
+```
+
+Gotcha: text _colour_ uses the `fg-` prefix (`text-fg-primary`) — without it, `text-primary` resolves to the colour but collides with `text-h1`/`text-body-*` font-size utilities under `tailwind-merge`. Use `text-fg-*` for foreground colour and reserve unprefixed `text-*` for the typography scale below.
+
+**Typography — responsive type scale (scales at 640px)**
+
+```
+text-h1  text-h2  text-h3  text-h4  text-h5  text-h6
+text-body-1  text-body-2  text-body-3
+font-semibold  font-bold   (use these — they read from --Semibold-Weight / --Bold-Weight)
+```
+
+**Spacing — responsive scale (scales at 640px)**
+
+```
+p-r1  p-r2  p-r3  p-r4  p-r5  p-r6     (and px-, py-, pt-, pr-, pb-, pl-)
+m-r1 … m-r6                             (and mx-, my-, mt-, …)
+gap-r1 … gap-r6                         (and gap-x-, gap-y-)
+space-x-r1 … space-y-r6
+size-r1 … size-r6, w-r*, h-r*
+top-r*, left-r*, inset-r*, …
+```
+
+Any Tailwind utility that takes a spacing value accepts `r1`–`r6`.
+
+**Radius, shadow**
+
+```
+rounded-sm  rounded-md  rounded-lg  rounded-xl  rounded-full
+shadow-sm  shadow-md  shadow-lg
+```
+
+**Motion**
+
+```
+duration-fast  duration-normal  duration-slow
+duration-enter  duration-exit  duration-shift  duration-page
+ease-enter  ease-exit  ease-shift  ease-page  ease-bounce
+```
+
+**Media / overlay (escape-hatch arbitrary values)**
+
+For card hover scale, scrim colour, overlay blur, aspect ratios, etc., the tokens are exposed as `--media-*` and `--overlay-*` — reach for them with bracket syntax when needed, e.g. `aspect-[var(--media-aspect-poster)]`, `backdrop-blur-[var(--overlay-blur)]`.
+
+## Theme switching
+
+```html
+<html data-theme="grimdark">
+  <!-- or "events", "tech" -->
+</html>
+```
+
+Omitting `data-theme` gives the default theme (the `:root` token set, no override layer). Set the attribute however your app manages theme state — a `<script>` in `<head>`, a framework effect, whatever. No JS from this package is required.
+
+## Install contract
 
 ```css
 /* one import, in the consumer's app.css */
 @import "@batthewz/response-ui-css";
 ```
 
-That import internally does, in order:
+That single import pulls in, in order: Google Fonts → `tailwindcss` → tokens → responsive scales → animations → built-in themes → base layer. No PostCSS config needed.
 
-1. Google Fonts for all four themes
-2. `@import "tailwindcss";`
-3. Tokens (`./tokens/index.css`) — colors, radius, shadows, transitions, motion, overlay, media
-4. Responsive scales (`./responsive/index.css`) — spacing, text
-5. Animation CSS (`./animations/index.css`) — fade, morph, scale, scroll-reveal, stagger, view-transitions
-6. Theme overrides (`./themes/index.css`) — `events`, `grimdark`, `tech`
-7. Base layer (`./base.css`) — root font, scrollbar styling, dialog body-lock
-8. `@source "../../response-ui-react-components/src/**/*.{ts,tsx}"` and the same for `dist/**` so Tailwind v4's content-detection picks up classes used inside the React package
+For Tailwind v4 to detect utility classes used outside the consumer's own source tree (e.g. in a separately-installed component library), add `@source "…"` directives in the consumer's `app.css` after the import.
 
-There is no PostCSS config to add. Tailwind v4 reads everything from CSS.
+## Where things live
 
-**Per-component CSS does NOT live here.** Accordion.css, AppShell.css, Button.css, etc. were moved into `@batthewz/response-ui-react-components` (co-located with each `.tsx`) and are imported via `@import "@batthewz/response-ui-react-components/styles"`. This package is strictly the **design-system foundation**: tokens, themes, responsive scales, animations, base styles. If you're adding a CSS file that is specifically the visual implementation of a React component, it belongs in the React package, not here.
+| Path                                                       | Purpose                                                                                                 |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| [src/index.css](src/index.css)                             | Public entry (with fonts)                                                                               |
+| [src/index-no-fonts.css](src/index-no-fonts.css)           | Public entry without fonts                                                                              |
+| [src/fonts.css](src/fonts.css)                             | Font imports only                                                                                       |
+| [src/\_theme-template.css](src/_theme-template.css)        | **Read this.** Copyable template for custom themes — semantic comments on every variable                |
+| [src/tokens/](src/tokens/)                                 | Default theme + `@theme inline` mappings (colors, radius, shadows, transitions, motion, overlay, media) |
+| [src/responsive/](src/responsive/)                         | `--R-SIZE-*`, `--H*`, `--BodyText-*` and their Tailwind aliases                                         |
+| [src/themes/](src/themes/)                                 | Built-in `events`, `grimdark`, `tech` overrides                                                         |
+| [scripts/theme-from-json.mjs](scripts/theme-from-json.mjs) | CLI: JSON → CSS theme file                                                                              |
 
-## Theme switching
+This package is strictly the design-system foundation: tokens, themes, responsive scales, animations, base styles. It ships no components and no JavaScript.
 
-Themes are controlled by a single attribute:
+## Authoring a custom theme
 
-```html
-<html data-theme="grimdark">  <!-- or "events", "tech" -->
-```
+1. Copy [src/\_theme-template.css](src/_theme-template.css), rename it, change the `[data-theme="…"]` selector, replace the OKLCH values. Required variables are at the top; optional ones (radius, shadow, motion, weights) at the bottom — omit to inherit from `:root`.
+2. `@import` it in `app.css` **after** `@import "@batthewz/response-ui-css";`.
+3. Set `<html data-theme="your-theme">` (or toggle it from whatever drives theme state in the consuming app).
 
-Removing `data-theme` (or omitting it) gives the `default` theme — that's just the `:root` token set, no override layer.
-
-The React package's `useTheme()` hook is the canonical way to set this from JS, including localStorage persistence.
-
-## The theme contract — required CSS variables
-
-Anything defined as a custom property on `:root` is part of the contract. A custom theme MUST define the **required** ones; **optional** ones inherit from `:root` if omitted.
-
-### Required — colors (OKLCH)
-
-```
---C-CANVAS                 page background
---C-PRIMARY / -HOVER / -ACTIVE      brand primary
---C-SECONDARY / -HOVER              brand secondary
---C-ACCENT / -HOVER                  brand accent
---C-SURFACE-0 / -1 / -2 / -3         layered surfaces (cards, popovers)
---C-TEXT-PRIMARY / -SECONDARY / -MUTED / -INVERSE
---C-TEXT-ON-PRIMARY / -ON-ACCENT     text drawn on top of primary/accent fills
---C-BORDER-DEFAULT / -STRONG / -FOCUS
---C-STATUS-{ERROR,SUCCESS,WARNING,INFO}      foreground status colors
---C-STATUS-{ERROR,SUCCESS,WARNING,INFO}-BG   tinted backgrounds
-```
-
-### Required — typography
-
-```
---DEFAULT-FONT             body font-family
---DEFAULT-MONO-FONT        monospace font-family
---HEADING-FONT             heading font-family (often = DEFAULT-FONT)
---HEADING-LETTER-SPACING   normal | <length>
---HEADING-TEXT-TRANSFORM   none | uppercase | lowercase
-color-scheme: light | dark
-```
-
-### Optional — radius, shadow, motion, overlay, weights, text scales
-
-If omitted, these inherit from `:root`. Override only what you want to change.
-
-```
---RADIUS-{SM,MD,LG,XL,FULL}
---SHADOW-{SM,MD,LG}
---Bold-Weight, --Semibold-Weight
---MOTION-DURATION-{ENTER,EXIT,SHIFT,PAGE}
---MOTION-EASE-{PAGE,ENTER,EXIT,SHIFT,BOUNCE}
---MOTION-DISTANCE-{SM,MD,LG}
---MOTION-STAGGER-DELAY, --MOTION-PARALLAX-RATE
---MOTION-SCALE-{HOVER,PRESS}
---MOTION-PAGE-TRANSITION-{IN,OUT}        names of @keyframes
---MOTION-PAGE-{NEW,OLD}-ANIMATION-FILL-MODE
---OVERLAY-{SCRIM-COLOR, GRADIENT-START, GRADIENT-END, BLUR, BLUR-HEAVY}
---MEDIA-CARD-HOVER-{SCALE,LIFT}
---DURATION-{FAST,NORMAL,SLOW}
---H1..H6, --H1-line-height..H6-line-height
---BodyText-1..3, --BodyText-1-line-height..3-line-height
---R-SIZE-1..6                            responsive spacing scale
-```
-
-The `--R-SIZE-*`, `--H*`, and `--BodyText-*` tokens have BOTH a base value and a `@media (width >= 40rem)` override — they scale at the 640px breakpoint. If a custom theme overrides them, do so inside the same media-query structure.
-
-### How tokens map to Tailwind utilities
-
-`@theme inline` blocks in each token file expose Tailwind-friendly aliases. The mapping (relevant for AI generating utility classes):
-
-```
---C-PRIMARY            → bg-primary, text-primary, border-primary, ring-primary
---C-PRIMARY-HOVER      → bg-primary-hover, ...
---C-CANVAS             → bg-canvas
---C-SURFACE-0..3       → bg-surface-0, bg-surface-1, ...
---C-TEXT-PRIMARY       → text-fg-primary       (note: "fg" prefix)
---C-TEXT-SECONDARY     → text-fg-secondary
---C-TEXT-MUTED         → text-fg-muted
---C-TEXT-INVERSE       → text-fg-inverse
---C-TEXT-ON-PRIMARY    → text-fg-on-primary
---C-TEXT-ON-ACCENT     → text-fg-on-accent
---C-BORDER-DEFAULT     → border-border-default, ring-border-default
---C-BORDER-STRONG      → border-border-strong
---C-BORDER-FOCUS       → border-border-focus, ring-border-focus
---C-STATUS-ERROR       → text-status-error, bg-status-error
---C-STATUS-ERROR-BG    → bg-status-error-bg
-   (same pattern for SUCCESS, WARNING, INFO)
-
---R-SIZE-1..6          → p-r1, m-r1, gap-r1, ... (responsive spacing)
---H1..H6               → text-h1, text-h2, ...
---BodyText-1..3        → text-body-1, text-body-2, text-body-3
-
---RADIUS-SM..XL        → rounded-sm, rounded-md, rounded-lg, rounded-xl
---RADIUS-FULL          → rounded-full
---SHADOW-SM..LG        → shadow-sm, shadow-md, shadow-lg
-
---MOTION-DURATION-ENTER → duration-enter, etc.
---MOTION-EASE-ENTER     → ease-enter, etc.
---DURATION-FAST/NORMAL/SLOW → duration-fast, duration-normal, duration-slow
-```
-
-Important: when AI generates `cn(...)` calls in the React package, use the responsive `r1..r6` spacing and `h1..h6`/`body-1..3` text utilities instead of Tailwind defaults. The merge config in `@batthewz/response-ui-react-components/util/style` knows about these — using them ensures `tailwind-merge` collapses correctly.
-
-## Authoring a new theme — minimal example
-
-```css
-:root[data-theme="aurora"] {
-  color-scheme: dark;
-
-  --DEFAULT-FONT: "Inter", sans-serif;
-  --DEFAULT-MONO-FONT: "JetBrains Mono", monospace;
-  --HEADING-FONT: "Inter", sans-serif;
-  --HEADING-LETTER-SPACING: normal;
-  --HEADING-TEXT-TRANSFORM: none;
-
-  --C-CANVAS: oklch(0.18 0.04 270);
-  --C-PRIMARY: oklch(0.6 0.15 220);
-  --C-PRIMARY-HOVER: oklch(0.55 0.15 220);
-  --C-PRIMARY-ACTIVE: oklch(0.5 0.15 220);
-  --C-SECONDARY: oklch(0.3 0.05 220);
-  --C-SECONDARY-HOVER: oklch(0.35 0.05 220);
-  --C-ACCENT: oklch(0.7 0.2 90);
-  --C-ACCENT-HOVER: oklch(0.65 0.2 90);
-
-  --C-SURFACE-0: oklch(0.2 0.04 270);
-  --C-SURFACE-1: oklch(0.23 0.04 270);
-  --C-SURFACE-2: oklch(0.27 0.04 270);
-  --C-SURFACE-3: oklch(0.31 0.04 270);
-
-  --C-TEXT-PRIMARY: oklch(0.95 0.02 90);
-  --C-TEXT-SECONDARY: oklch(0.75 0.02 90);
-  --C-TEXT-MUTED: oklch(0.55 0.02 90);
-  --C-TEXT-INVERSE: oklch(0.18 0.04 270);
-  --C-TEXT-ON-PRIMARY: oklch(0.18 0.04 270);
-  --C-TEXT-ON-ACCENT: oklch(0.18 0.04 270);
-
-  --C-BORDER-DEFAULT: oklch(0.35 0.04 270);
-  --C-BORDER-STRONG: oklch(0.45 0.04 270);
-  --C-BORDER-FOCUS: oklch(0.7 0.2 90);
-
-  --C-STATUS-ERROR: oklch(0.65 0.22 27);
-  --C-STATUS-ERROR-BG: oklch(0.25 0.05 27);
-  --C-STATUS-SUCCESS: oklch(0.7 0.18 145);
-  --C-STATUS-SUCCESS-BG: oklch(0.25 0.05 145);
-  --C-STATUS-WARNING: oklch(0.78 0.16 75);
-  --C-STATUS-WARNING-BG: oklch(0.25 0.05 75);
-  --C-STATUS-INFO: oklch(0.6 0.15 240);
-  --C-STATUS-INFO-BG: oklch(0.25 0.05 240);
-}
-```
-
-Don't forget to:
-1. Tell `useTheme` about the new name: `useTheme({ themes: ["default", "aurora"] as const })`
-2. `@import` the file in app.css **after** `@import "@batthewz/response-ui-css";`
-
-## Files to remember
-
-| Path | Purpose |
-| --- | --- |
-| `src/index.css` | Public entry (with fonts) |
-| `src/index-no-fonts.css` | Public entry without fonts |
-| `src/fonts.css` | Font imports only |
-| `src/_theme-template.css` | Copyable template for custom themes |
-| `src/tokens/colors.css` | The default theme's color tokens |
-| `src/themes/{events,grimdark,tech}.css` | Built-in themes |
-| `scripts/theme-from-json.mjs` | CLI: JSON → CSS theme file |
+If a theme overrides `--R-SIZE-*`, `--H*`, or `--BodyText-*`, mirror the `@media (width >= 40rem)` structure from [src/responsive/](src/responsive/) so the responsive bump survives.
 
 ## Don'ts
 
 - Don't add a `tailwind.config.js` — v4 reads everything from CSS.
-- Don't import individual token files in app code unless you're explicitly opting out of the full system — use the main entry.
-- Don't use Tailwind defaults like `p-4`, `text-sm` for the design system's responsive scale; use `p-r3`, `text-body-2` so themes can re-scale them.
-- Don't define a theme's required color/font/`color-scheme` variables outside the contract — components rely on every required variable being present.
+- Don't import individual token files; use the main entry.
+- Don't use Tailwind defaults like `p-4`, `text-sm`, `bg-blue-500`, `rounded` — use `p-r3`, `text-body-2`, `bg-accent`, `rounded-md`.
+- Don't use `text-primary` for foreground colour — that name collides with the type-scale utility under `tailwind-merge`. Use `text-fg-primary`.
+- Don't omit required colour/font/`color-scheme` variables from a custom theme — consumers assume every required variable is present.
