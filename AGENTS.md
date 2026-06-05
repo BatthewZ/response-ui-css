@@ -21,13 +21,14 @@ That import internally does, in order:
 2. `@import "tailwindcss";`
 3. Tokens (`./tokens/index.css`) — colors, radius, shadows, transitions, motion, overlay, media
 4. Responsive scales (`./responsive/index.css`) — spacing, text
-5. Component CSS (`./components/index.css`) — accordion, app-shell, breadcrumbs, etc.
-6. Animation CSS (`./animations/index.css`) — fade, morph, scale, scroll-reveal, stagger, view-transitions
-7. Theme overrides (`./themes/index.css`) — `events`, `grimdark`, `tech`
-8. Base layer (`./base.css`) — root font, scrollbar styling, dialog body-lock
-9. `@source "../../response-ui-react-components/src/**/*.{ts,tsx}"` and the same for `dist/**` so Tailwind v4's content-detection picks up classes used inside the React package
+5. Animation CSS (`./animations/index.css`) — fade, morph, scale, scroll-reveal, stagger, view-transitions
+6. Theme overrides (`./themes/index.css`) — `events`, `grimdark`, `tech`
+7. Base layer (`./base.css`) — root font, scrollbar styling, dialog body-lock
+8. `@source "../../response-ui-react-components/src/**/*.{ts,tsx}"` and the same for `dist/**` so Tailwind v4's content-detection picks up classes used inside the React package
 
 There is no PostCSS config to add. Tailwind v4 reads everything from CSS.
+
+**Per-component CSS does NOT live here.** Accordion.css, AppShell.css, Button.css, etc. were moved into `@batthewz/response-ui-react-components` (co-located with each `.tsx`) and are imported via `@import "@batthewz/response-ui-react-components/styles"`. This package is strictly the **design-system foundation**: tokens, themes, responsive scales, animations, base styles. If you're adding a CSS file that is specifically the visual implementation of a React component, it belongs in the React package, not here.
 
 ## Theme switching
 

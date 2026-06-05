@@ -1,13 +1,16 @@
 /* @batthewz/response-ui-css — public entry.
-   Imports Tailwind v4 + Google Fonts + all design tokens, themes, responsive,
-   animation and component CSS. Consumers do `@import "@batthewz/response-ui-css";`
-   in their own app.css.                                                       */
+   Imports Tailwind v4 + Google Fonts + all design tokens, themes, responsive
+   scales, animations, and base styles. Consumers do
+   `@import "@batthewz/response-ui-css";` in their own app.css.
+
+   Per-component CSS (Accordion, Button, etc.) lives in
+   `@batthewz/response-ui-react-components` alongside each React component
+   and is imported via `@import "@batthewz/response-ui-react-components/styles";`. */
 
 @import "./fonts.css";
 @import "tailwindcss";
 @import "./tokens/index.css";
 @import "./responsive/index.css";
-@import "./components/index.css";
 @import "./animations/index.css";
 @import "./themes/index.css";
 @import "./base.css";

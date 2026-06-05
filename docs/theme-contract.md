@@ -106,23 +106,36 @@ Defaults: `0.25rem / 0.5rem / 0.75rem / 1rem / 9999px`. Map to `rounded-sm`, `ro
 
 Map to `shadow-sm`, `shadow-md`, `shadow-lg`. For dark themes you'll often want deeper, less-blurry shadows.
 
-### Typography scales
+### Responsive scales — shared convention
 
-Each has both a base value and a `@media (width >= 40rem)` override (these scale up at 640px). If you override them, override at both breakpoints in the same media-query structure as `responsive/text.css`.
+Three token families share one numbering rule and one breakpoint:
+
+- **`1` is always the most significant value; numbers ascend as values shrink.**
+- Each token has a **mobile-first base** and an **automatic step-up at `@media (width >= 40rem)`** (640px). That's where the `r` / "responsive" naming on the utilities comes from.
+- If you override any of these tokens in a theme, override **both** breakpoints in the same media-query structure as [`src/responsive/text.css`](../src/responsive/text.css) and [`src/responsive/spacing.css`](../src/responsive/spacing.css).
+
+| Family | Tokens | Count | Notes |
+| --- | --- | --- | --- |
+| Headings | `--H1, --H1-line-height` … `--H6, --H6-line-height` | 6 | Numbering mirrors HTML `<h1>`–`<h6>`, so `--H2` is what's applied to `<h2>` (and to `.h2` / `text-h2`). |
+| Body text | `--BodyText-1, --BodyText-1-line-height` … `--BodyText-3, --BodyText-3-line-height` | 3 | Large / base / fine. Drives `text-body-1`..`text-body-3`. |
+| Spacing | `--R-SIZE-1` … `--R-SIZE-6` | 6 | `R-SIZE-1` is the largest gap, `R-SIZE-6` the tightest. Drives `p-r1`..`p-r6`, `m-r1`..`m-r6`, `gap-r1`..`gap-r6`, and every other Tailwind spacing utility. |
+
+### Line heights — paired with every size, also responsive
+
+Every heading and body-text token has a matching `*-line-height` token (e.g. `--H2` ↔ `--H2-line-height`, `--BodyText-1` ↔ `--BodyText-1-line-height`). Two consequences:
+
+1. **Each size carries its own leading.** A larger heading uses a more generous line-height; smaller body text uses tighter leading appropriate to its size. You don't pair `text-h2` with a `leading-*` utility — the line-height is already correct.
+2. **Line-heights step up with sizes at 40rem.** When `--H2` grows from `1.75rem` to `3rem` at the desktop breakpoint, `--H2-line-height` grows from `2.25rem` to `4rem` in lockstep. The size/leading ratio is tuned per breakpoint, not a fixed multiplier.
+
+If you override a font-size token, override its line-height counterpart at the **same breakpoint** — otherwise you'll get a desktop size at a mobile leading (or vice versa).
+
+### Typography weights — auto-adjusted across breakpoints
 
 ```
---H1, --H1-line-height        (down through H6)
---BodyText-1, --BodyText-1-line-height  (down through BodyText-3)
---Bold-Weight, --Semibold-Weight
+--Semibold-Weight, --Bold-Weight
 ```
 
-### Responsive spacing scale
-
-```
---R-SIZE-1, --R-SIZE-2, --R-SIZE-3, --R-SIZE-4, --R-SIZE-5, --R-SIZE-6
-```
-
-Maps to `p-r1`, `m-r1`, `gap-r1`, etc. Has a base + `@media (width >= 40rem)` step-up.
+These also step at 40rem. The defaults are `500/600` on mobile and `600/700` on desktop — so small mobile text uses a lighter weight that reads cleanly at small sizes, and larger desktop text gets a heavier weight that holds visual hierarchy. They're plumbed into Tailwind as `--font-weight-semibold` / `--font-weight-bold`, so `font-semibold` and `font-bold` follow the breakpoint automatically. If you override them, override at both breakpoints.
 
 ### Motion
 
@@ -223,7 +236,7 @@ When extending utilities (adding new colors, etc.), also extend the `tailwindMer
    setTheme("aurora");
    ```
 
-Or generate from JSON (e.g. exported from the showcase's ThemeEditor):
+Or generate from JSON:
 
 ```bash
 bunx @batthewz/response-ui-css theme-from-json my-theme.json --name aurora > src/themes/aurora.css

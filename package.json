@@ -1,10 +1,10 @@
 {
   "name": "@batthewz/response-ui-css",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
-  "description": "Design tokens, themes, and component CSS for the response-ui design system. Tailwind v4 CSS-first.",
+  "description": "Design tokens, themes, responsive scales, and animations for the response-ui design system. Tailwind v4 CSS-first. The foundation layer; pairs with @batthewz/response-ui-react-components.",
   "sideEffects": ["*.css"],
-  "files": ["src", "scripts", "docs", "AGENTS.md", "README.md", "LICENSE"],
+  "files": ["src", "scripts", "docs", "AGENTS.md", "CHANGELOG.md", "README.md", "LICENSE"],
   "repository": {
     "type": "git",
     "url": "https://github.com/BatthewZ/response-ui-css.git"

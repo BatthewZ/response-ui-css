@@ -1,12 +1,14 @@
 /* @batthewz/response-ui-css/no-fonts — variant of the public entry without the
    Google Fonts imports. Use this if you self-host fonts. Theme files reference
    font-family names like "Poppins" / "Cinzel" — make sure those names resolve
-   in your own CSS before this import runs.                                    */
+   in your own CSS before this import runs.
+
+   Per-component CSS now lives in `@batthewz/response-ui-react-components`;
+   add `@import "@batthewz/response-ui-react-components/styles";` if you use it. */
 
 @import "tailwindcss";
 @import "./tokens/index.css";
 @import "./responsive/index.css";
-@import "./components/index.css";
 @import "./animations/index.css";
 @import "./themes/index.css";
 @import "./base.css";
