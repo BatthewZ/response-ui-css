@@ -49,6 +49,12 @@
   "bin": {
     "theme-from-json": "./scripts/theme-from-json.mjs"
   },
+  "scripts": {
+    "prepublishOnly": "node --check scripts/theme-from-json.mjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": ["design-system", "tailwind", "tailwindcss-v4", "tokens", "themes", "css", "oklch"],
   "license": "MIT"
 }
