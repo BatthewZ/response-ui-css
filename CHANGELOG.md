@@ -4,6 +4,21 @@ All notable changes to `@batthewz/response-ui-css` will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Until 1.0.0, breaking changes will bump the **minor** version.
 
+## [Unreleased]
+
+### Breaking
+
+- **Removed the `theme-from-json` CLI** (`scripts/theme-from-json.mjs`) and its `bin` entry. The script was a thin string-builder that emitted a `:root[data-theme="…"]` block from a JSON token map — with no validation against the theme contract. It was originally a target for a `ThemeEditor` UI that hasn't existed in this package since extraction (see 0.2.0 entry below), and no sibling project under `@batthewz/` consumed it.
+
+  **Migration:** copy [src/\_theme-template.css](./src/_theme-template.css) and edit it directly, or hand-author a `:root[data-theme="…"]` block per [docs/theme-contract.md](./docs/theme-contract.md). Both paths are strictly better than the CLI — the template lists every required and optional variable with comments; the CLI didn't.
+
+### Removed
+
+- `scripts/theme-from-json.mjs` and the `scripts/` directory.
+- `bin.theme-from-json` and the `prepublishOnly` syntax-check from [package.json](./package.json); `scripts` removed from the `files` array.
+- CLI references from [README.md](./README.md) ("Generate from JSON" on-ramp) and [docs/theme-contract.md](./docs/theme-contract.md) ("Or generate from JSON" + JSON input shape).
+- CLI references from [AGENTS.md](./AGENTS.md) (the `Where things live` table row and the `theme-from-json CLI` section).
+
 ## [0.2.0] — 2026-06-05
 
 ### Breaking

@@ -235,23 +235,3 @@ When extending utilities (adding new colors, etc.), also extend the `tailwindMer
    const { setTheme } = useTheme({ themes: ["default", "aurora"] as const });
    setTheme("aurora");
    ```
-
-Or generate from JSON:
-
-```bash
-bunx @batthewz/response-ui-css theme-from-json my-theme.json --name aurora > src/themes/aurora.css
-```
-
-Input shape:
-
-```json
-{
-  "name": "aurora",
-  "colorScheme": "dark",
-  "vars": {
-    "--C-CANVAS": "oklch(0.18 0.04 270)",
-    "--C-PRIMARY": "oklch(0.6 0.15 220)",
-    "...": "..."
-  }
-}
-```

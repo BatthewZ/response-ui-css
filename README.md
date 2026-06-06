@@ -81,7 +81,7 @@ The React package exports a `useTheme()` hook that does this for you.
 
 ### Define your own theme
 
-A theme is any selector that overrides the documented set of CSS custom properties. The convention is `:root[data-theme="…"]`. Three on-ramps:
+A theme is any selector that overrides the documented set of CSS custom properties. The convention is `:root[data-theme="…"]`. Two on-ramps:
 
 1. **Copy the template:**
    ```bash
@@ -94,12 +94,7 @@ A theme is any selector that overrides the documented set of CSS custom properti
    @import "./themes/aurora.css";
    ```
 
-2. **Generate from JSON:**
-   ```bash
-   bunx @batthewz/response-ui-css theme-from-json my-theme.json --name aurora > src/themes/aurora.css
-   ```
-
-3. **Hand-write CSS** following the contract:
+2. **Hand-write CSS** following the contract:
    ```css
    :root[data-theme="aurora"] {
      color-scheme: dark;
