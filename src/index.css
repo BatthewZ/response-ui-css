@@ -14,8 +14,3 @@
 @import "./animations/index.css";
 @import "./themes/index.css";
 @import "./base.css";
-
-/* Tailwind v4 — scan compiled React package for utility classes.
-   The path is relative to this file inside the consumer's node_modules.       */
-@source "../../response-ui-react-components/src/**/*.{ts,tsx}";
-@source "../../response-ui-react-components/dist/**/*.{js,mjs,cjs}";

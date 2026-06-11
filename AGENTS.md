@@ -132,7 +132,7 @@ Omit `data-theme` for the default (`:root` token set, no override layer). Set th
 
 Pulls in, in order: Google Fonts → `tailwindcss` → tokens → responsive scales → animations → built-in themes → base. No PostCSS config needed.
 
-The entry already includes `@source` directives for `@batthewz/response-ui-react-components` (both `src/**/*.{ts,tsx}` and `dist/**/*.{js,mjs,cjs}`) — that sibling package is scanned out of the box. For any **other** separately-installed component library used outside the consumer's own source tree, add additional `@source "…"` directives after the import.
+Tailwind source scanning for `@batthewz/response-ui-react-components` is handled by **that package itself** — its `styles` entry carries a self-relative `@source`, which resolves under any node_modules layout. This entry must NOT point sideways at the sibling package (`@source "../../response-ui-react-components/…"`): such paths assume npm's hoisted layout and silently match nothing under isolated stores (bun, pnpm). For any **other** separately-installed component library used outside the consumer's own source tree, the consumer adds `@source "…"` directives after the import.
 
 ### Subpath exports (rare — prefer the main entry)
 
@@ -152,7 +152,7 @@ Default rule still applies: **use the main entry.** Subpaths exist for the liste
 
 | Path | Purpose |
 | --- | --- |
-| [src/index.css](src/index.css) | Public entry (with fonts); auto-`@source`s the React components package |
+| [src/index.css](src/index.css) | Public entry (with fonts) |
 | [src/index-no-fonts.css](src/index-no-fonts.css) | Public entry without fonts |
 | [src/fonts.css](src/fonts.css) | Font imports only |
 | [src/\_theme-template.css](src/_theme-template.css) | **Read this.** Theme contract with semantic comments |

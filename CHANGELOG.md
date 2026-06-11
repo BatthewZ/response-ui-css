@@ -4,6 +4,14 @@ All notable changes to `@batthewz/response-ui-css` will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Until 1.0.0, breaking changes will bump the **minor** version.
 
+## [0.5.0] — 2026-06-11
+
+### Removed
+
+- **Sideways `@source` directives for `@batthewz/response-ui-react-components`** from [src/index.css](./src/index.css) and [src/index-no-fonts.css](./src/index-no-fonts.css). The `../../response-ui-react-components/…` paths assumed npm's hoisted layout and silently matched nothing under isolated stores (bun, pnpm). Tailwind source registration now lives inside the components package itself — its `styles` entry carries a self-relative `@source` that resolves under any layout.
+
+  **Migration:** pair with `@batthewz/response-ui-react-components` ≥ 0.3.0 (first release with the self-relative `@source`). If you must stay on an older components release, add a manual `@source "<path-to>/node_modules/@batthewz/response-ui-react-components/src/**/*.{ts,tsx}";` to your app CSS.
+
 ## [0.4.0]
 
 ### Breaking

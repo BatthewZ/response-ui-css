@@ -12,6 +12,3 @@
 @import "./animations/index.css";
 @import "./themes/index.css";
 @import "./base.css";
-
-@source "../../response-ui-react-components/src/**/*.{ts,tsx}";
-@source "../../response-ui-react-components/dist/**/*.{js,mjs,cjs}";
