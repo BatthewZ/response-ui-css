@@ -39,6 +39,19 @@
   --C-STATUS-WARNING-BG: oklch(0.9869 0.0214 95.28);
   --C-STATUS-INFO: oklch(0.5461 0.2152 262.88);
   --C-STATUS-INFO-BG: oklch(0.9705 0.0142 254.6);
+
+  /* Trend — aliased to status so themes inherit automatically */
+  --C-TREND-UP: var(--C-STATUS-SUCCESS);
+  --C-TREND-UP-BG: var(--C-STATUS-SUCCESS-BG);
+  --C-TREND-DOWN: var(--C-STATUS-ERROR);
+  --C-TREND-DOWN-BG: var(--C-STATUS-ERROR-BG);
+
+  /* Chart — categorical palette (accent/blue, green, orange, violet, cyan) */
+  --C-CHART-1: oklch(0.5461 0.2152 262.88);
+  --C-CHART-2: oklch(0.6271 0.1699 149.21);
+  --C-CHART-3: oklch(0.6658 0.1574 58.32);
+  --C-CHART-4: oklch(0.5413 0.2466 293.01);
+  --C-CHART-5: oklch(0.6896 0.1037 218.62);
 }
 
 /*
@@ -88,4 +101,17 @@
   --color-status-warning-bg: var(--C-STATUS-WARNING-BG);
   --color-status-info: var(--C-STATUS-INFO);
   --color-status-info-bg: var(--C-STATUS-INFO-BG);
+
+  /* Trend */
+  --color-trend-up: var(--C-TREND-UP);
+  --color-trend-up-bg: var(--C-TREND-UP-BG);
+  --color-trend-down: var(--C-TREND-DOWN);
+  --color-trend-down-bg: var(--C-TREND-DOWN-BG);
+
+  /* Chart */
+  --color-chart-1: var(--C-CHART-1);
+  --color-chart-2: var(--C-CHART-2);
+  --color-chart-3: var(--C-CHART-3);
+  --color-chart-4: var(--C-CHART-4);
+  --color-chart-5: var(--C-CHART-5);
 }

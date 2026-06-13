@@ -89,4 +89,21 @@
   /* Page transitions — reference @keyframes you define elsewhere */
   /* --MOTION-PAGE-TRANSITION-IN: my-page-in;
      --MOTION-PAGE-TRANSITION-OUT: my-page-out; */
+
+  /* Dashboard — trend & chart (for data viz / dashboards) */
+  /* Trend is aliased to status by default, so it inherits whatever you set
+     above for --C-STATUS-SUCCESS / --C-STATUS-ERROR. Override only to decouple
+     trend direction from semantic status. */
+  /* --C-TREND-UP: var(--C-STATUS-SUCCESS);
+     --C-TREND-UP-BG: var(--C-STATUS-SUCCESS-BG);
+     --C-TREND-DOWN: var(--C-STATUS-ERROR);
+     --C-TREND-DOWN-BG: var(--C-STATUS-ERROR-BG); */
+
+  /* Categorical chart palette — 5 distinct hues. For dark themes, raise
+     lightness (~0.65–0.78) so series stay legible on a dark canvas. */
+  /* --C-CHART-1: oklch(0.55 0.22 263);
+     --C-CHART-2: oklch(0.63 0.17 149);
+     --C-CHART-3: oklch(0.67 0.16 58);
+     --C-CHART-4: oklch(0.54 0.25 293);
+     --C-CHART-5: oklch(0.69 0.10 219); */
 }

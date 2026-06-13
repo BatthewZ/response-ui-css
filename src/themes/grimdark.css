@@ -52,6 +52,13 @@
   --C-STATUS-INFO: oklch(0.551 0.0234 264.36);
   --C-STATUS-INFO-BG: oklch(0.226 0.0083 264.39);
 
+  /* Chart — dark-tuned categorical palette */
+  --C-CHART-1: oklch(0.68 0.17 262.88);
+  --C-CHART-2: oklch(0.72 0.19 149.58);
+  --C-CHART-3: oklch(0.78 0.16 58.32);
+  --C-CHART-4: oklch(0.66 0.21 293.01);
+  --C-CHART-5: oklch(0.74 0.11 218.62);
+
   /* Radius — sharp, brutal, no rounding */
   --RADIUS-SM: 0;
   --RADIUS-MD: 0;
