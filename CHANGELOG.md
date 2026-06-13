@@ -4,6 +4,16 @@ All notable changes to `@batthewz/response-ui-css` will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Until 1.0.0, breaking changes will bump the **minor** version.
 
+## [0.6.0] — 2026-06-13
+
+### Added
+
+- **Trend tokens** — `--C-TREND-UP` / `--C-TREND-UP-BG` and `--C-TREND-DOWN` / `--C-TREND-DOWN-BG`, aliased to the status success/error colors so up/down deltas read consistently with the semantic palette.
+- **Categorical chart palette** — `--C-CHART-1`..`--C-CHART-5`, a five-step categorical series palette for charts and data-display primitives.
+- **`@theme inline` mappings** for the above, exposing `text-trend-up` / `text-trend-down` (+ `-bg` background variants) and `bg-chart-1`..`bg-chart-5` (+ text variants) utilities.
+- **Grimdark and tech chart overrides** — per-theme overrides of the `--C-CHART-*` palette so categorical series stay legible against each theme's surfaces.
+- **Theme-contract + template docs** — the trend and chart tokens are documented in [docs/theme-contract.md](./docs/theme-contract.md) and listed in [src/\_theme-template.css](./src/_theme-template.css).
+
 ## [0.5.0] — 2026-06-11
 
 ### Removed
