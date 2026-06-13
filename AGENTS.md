@@ -54,6 +54,13 @@ ring-border-default    ring-border-focus
 
 The colour palette is also addressable as unprefixed `bg-*` / `border-*` / `ring-*` / `text-*` (e.g. `border-primary`, `ring-accent`). **For foreground colour always use `text-fg-*`** — unprefixed `text-primary` collides with the typography scale under `tailwind-merge`. There's no `on-secondary` / `on-surface-*` / `on-status-bg` by design — those backgrounds are near-canvas by contract, so `text-fg-primary` reads on them.
 
+### Contrast contract
+
+Fill tokens (`--C-PRIMARY`, `--C-ACCENT`, status `bg-*`) are guaranteed to contrast only their _paired_ foreground (`--C-TEXT-ON-PRIMARY`, `--C-TEXT-ON-ACCENT`, …) — **never the surface**. A theme may legitimately set `--C-PRIMARY` ≈ `--C-SURFACE-*` (grimdark and tech both do). So:
+
+- **Ink on a surface** — text, a 1–2px border, a connector line, an icon drawn directly on `--C-SURFACE-*` — must use a **text token** (`--C-TEXT-PRIMARY` / `-SECONDARY` / `-MUTED`); those are contract-guaranteed to read on the surface. Never a fill token.
+- **A badge / chip / avatar filled with a fill token** must be outlined in its `on-*` text token, not in the fill itself. That ring is provably visible _exactly_ when the fill blends into the surface (if `fill ≈ surface`, then `on-fill` contrasts the surface too), and stays a quiet halo where the fill already pops.
+
 ### Typography (scales at 640px)
 
 ```
@@ -119,7 +126,9 @@ Bracket-syntax escape hatch for `--media-*` and `--overlay-*` tokens — e.g. `a
 ## Theme switching
 
 ```html
-<html data-theme="grimdark">   <!-- or "events", "tech" -->
+<html data-theme="grimdark">
+  <!-- or "events", "tech" -->
+</html>
 ```
 
 Omit `data-theme` for the default (`:root` token set, no override layer). Set the attribute however your app manages theme state — a `<script>` in `<head>`, a framework effect, whatever. No JS from this package required.
@@ -127,7 +136,7 @@ Omit `data-theme` for the default (`:root` token set, no override layer). Set th
 ## Install contract
 
 ```css
-@import "@batthewz/response-ui-css";   /* in consumer's app.css */
+@import "@batthewz/response-ui-css"; /* in consumer's app.css */
 ```
 
 Pulls in, in order: Google Fonts → `tailwindcss` → tokens → responsive scales → animations → built-in themes → base. No PostCSS config needed.
@@ -138,29 +147,29 @@ Tailwind source scanning for `@batthewz/response-ui-react-components` is handled
 
 The package also exposes these subpaths, for the narrow cases where the main entry is wrong:
 
-| Subpath | When |
-| --- | --- |
-| `@batthewz/response-ui-css/no-fonts` | App self-hosts Poppins / its theme fonts |
-| `@batthewz/response-ui-css/fonts` | Pull only the Google Fonts import (rare) |
-| `@batthewz/response-ui-css/themes/{events,grimdark,tech}` | Cherry-pick one built-in theme without loading the others |
-| `@batthewz/response-ui-css/theme-template` | Programmatic access to the template (tooling) |
-| `@batthewz/response-ui-css/tokens` | Tokens only, no responsive scales / animations / base (very rare; you usually want the whole entry) |
+| Subpath                                                   | When                                                                                                |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `@batthewz/response-ui-css/no-fonts`                      | App self-hosts Poppins / its theme fonts                                                            |
+| `@batthewz/response-ui-css/fonts`                         | Pull only the Google Fonts import (rare)                                                            |
+| `@batthewz/response-ui-css/themes/{events,grimdark,tech}` | Cherry-pick one built-in theme without loading the others                                           |
+| `@batthewz/response-ui-css/theme-template`                | Programmatic access to the template (tooling)                                                       |
+| `@batthewz/response-ui-css/tokens`                        | Tokens only, no responsive scales / animations / base (very rare; you usually want the whole entry) |
 
 Default rule still applies: **use the main entry.** Subpaths exist for the listed edge cases, not as a menu.
 
 ## Where things live
 
-| Path | Purpose |
-| --- | --- |
-| [src/index.css](src/index.css) | Public entry (with fonts) |
-| [src/index-no-fonts.css](src/index-no-fonts.css) | Public entry without fonts |
-| [src/fonts.css](src/fonts.css) | Font imports only |
-| [src/\_theme-template.css](src/_theme-template.css) | **Read this.** Theme contract with semantic comments |
-| [src/tokens/](src/tokens/) | Default theme + `@theme inline` mappings (colors, radius, shadows, motion, transitions, media, overlay) |
-| [src/responsive/](src/responsive/) | `--R-SIZE-*`, `--H*`, `--BodyText-*` + Tailwind aliases |
-| [src/animations/](src/animations/) | Keyframes + `.class` / `animate-*` utilities for fade, scale, morph, scroll-reveal, stagger, view-transitions |
-| [src/themes/](src/themes/) | Built-in `events`, `grimdark`, `tech` overrides |
-| [src/base.css](src/base.css) | Root font setup, theme-aware scrollbars, `dialog[open].no-body-scroll` body-lock |
+| Path                                                | Purpose                                                                                                       |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| [src/index.css](src/index.css)                      | Public entry (with fonts)                                                                                     |
+| [src/index-no-fonts.css](src/index-no-fonts.css)    | Public entry without fonts                                                                                    |
+| [src/fonts.css](src/fonts.css)                      | Font imports only                                                                                             |
+| [src/\_theme-template.css](src/_theme-template.css) | **Read this.** Theme contract with semantic comments                                                          |
+| [src/tokens/](src/tokens/)                          | Default theme + `@theme inline` mappings (colors, radius, shadows, motion, transitions, media, overlay)       |
+| [src/responsive/](src/responsive/)                  | `--R-SIZE-*`, `--H*`, `--BodyText-*` + Tailwind aliases                                                       |
+| [src/animations/](src/animations/)                  | Keyframes + `.class` / `animate-*` utilities for fade, scale, morph, scroll-reveal, stagger, view-transitions |
+| [src/themes/](src/themes/)                          | Built-in `events`, `grimdark`, `tech` overrides                                                               |
+| [src/base.css](src/base.css)                        | Root font setup, theme-aware scrollbars, `dialog[open].no-body-scroll` body-lock                              |
 
 Strictly the design-system foundation. Ships no React components, no JavaScript.
 
@@ -179,3 +188,4 @@ If a theme overrides `--R-SIZE-*` / `--H*` / `--BodyText-*`, mirror the `@media 
 - No Tailwind defaults (`p-4`, `text-sm`, `bg-blue-500`, `rounded`) — use tokens (`p-r3`, `text-body-2`, `bg-accent`, `rounded-md`).
 - No unprefixed `text-primary` for foreground colour — collides with the type-scale utility under `tailwind-merge`. Use `text-fg-primary`.
 - No partial themes — all required colour / font / `color-scheme` variables must be present.
+- No fill token (`--C-PRIMARY` / `--C-ACCENT` / status `bg-*`) as ink on a surface — it's only guaranteed to contrast its own `on-*` text, not the surface. Use a `--C-TEXT-*` token for ink/lines/borders, and outline filled chips in their `on-*` token. See **Contrast contract** above.
