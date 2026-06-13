@@ -170,32 +170,13 @@ Map to `duration-fast`, `duration-normal`, `duration-slow`.
 
 Used by Spotlight, Carousel overlays, modal scrims.
 
-### Media
+### Aspect ratios
 
 ```
---MEDIA-CARD-HOVER-SCALE, --MEDIA-CARD-HOVER-LIFT
+--ASPECT-WIDE, --ASPECT-SQUARE
 ```
 
-Used by `MediaCard`. `SCALE` is a unit-less number (e.g. `1.02`); `LIFT` is a length (e.g. `-0.125rem`).
-
-### Dashboard — trend & chart
-
-For data-viz / dashboard UIs. All optional.
-
-**Trend** is aliased to status on `:root`, so it inherits your status colors automatically — you don't need to set it. Override only to decouple trend direction from semantic status.
-
-| Token | Default (aliases) |
-| --- | --- |
-| `--C-TREND-UP` | `var(--C-STATUS-SUCCESS)` |
-| `--C-TREND-UP-BG` | `var(--C-STATUS-SUCCESS-BG)` |
-| `--C-TREND-DOWN` | `var(--C-STATUS-ERROR)` |
-| `--C-TREND-DOWN-BG` | `var(--C-STATUS-ERROR-BG)` |
-
-**Chart** is a 5-hue categorical palette for series colors. Defaults are tuned for light backgrounds; for dark themes raise lightness (~0.65–0.78) so series stay legible.
-
-```
---C-CHART-1, --C-CHART-2, --C-CHART-3, --C-CHART-4, --C-CHART-5
-```
+Generic layout primitives for any image/video. Map to `aspect-wide` (`16 / 9`) and `aspect-square` (`1 / 1`).
 
 ---
 
@@ -222,11 +203,8 @@ For data-viz / dashboard UIs. All optional.
 | `--C-STATUS-ERROR` | `text-status-error`, `bg-status-error` |
 | `--C-STATUS-ERROR-BG` | `bg-status-error-bg` |
 | (same for SUCCESS, WARNING, INFO) | |
-| `--C-TREND-UP` _(optional)_ | `text-trend-up`, `bg-trend-up` |
-| `--C-TREND-UP-BG` _(optional)_ | `bg-trend-up-bg` |
-| `--C-TREND-DOWN` _(optional)_ | `text-trend-down`, `bg-trend-down` |
-| `--C-TREND-DOWN-BG` _(optional)_ | `bg-trend-down-bg` |
-| `--C-CHART-1..5` _(optional)_ | `bg-chart-1`..`bg-chart-5`, `text-chart-1`..`text-chart-5` |
+| `--ASPECT-WIDE` | `aspect-wide` |
+| `--ASPECT-SQUARE` | `aspect-square` |
 | `--R-SIZE-1..6` | `p-r1`..`p-r6`, `m-r1`..`m-r6`, `gap-r1`..`gap-r6` (works with all spacing utilities) |
 | `--H1..H6` | `text-h1`..`text-h6` |
 | `--BodyText-1..3` | `text-body-1`, `text-body-2`, `text-body-3` |

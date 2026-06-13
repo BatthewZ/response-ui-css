@@ -1,0 +1,8 @@
+:root {
+  --ASPECT-WIDE: 16 / 9;
+  --ASPECT-SQUARE: 1 / 1;
+}
+@theme inline {
+  --aspect-wide: var(--ASPECT-WIDE);
+  --aspect-square: var(--ASPECT-SQUARE);
+}

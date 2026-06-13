@@ -96,10 +96,6 @@
   --OVERLAY-BLUR: 0.625rem;
   --OVERLAY-BLUR-HEAVY: 1.5rem;
 
-  /* Media */
-  --MEDIA-CARD-HOVER-SCALE: 1.03;
-  --MEDIA-CARD-HOVER-LIFT: -0.25rem;
-
   /* Transitions */
   --DURATION-FAST: 120ms;
   --DURATION-NORMAL: 220ms;

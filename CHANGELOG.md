@@ -6,13 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [0.6.0] — 2026-06-13
 
-### Added
+Tightens the universal-contract boundary: domain tokens (data-viz + single-component feel) move out to the libraries that own them, while the genuinely universal aspect ratios stay — renamed to shed the domain prefix. Themes may only tune universal tokens, so the matching chart/media-card overrides are gone too. Pair with `@batthewz/response-ui-react-components`, which re-homes the relocated tokens.
 
-- **Trend tokens** — `--C-TREND-UP` / `--C-TREND-UP-BG` and `--C-TREND-DOWN` / `--C-TREND-DOWN-BG`, aliased to the status success/error colors so up/down deltas read consistently with the semantic palette.
-- **Categorical chart palette** — `--C-CHART-1`..`--C-CHART-5`, a five-step categorical series palette for charts and data-display primitives.
-- **`@theme inline` mappings** for the above, exposing `text-trend-up` / `text-trend-down` (+ `-bg` background variants) and `bg-chart-1`..`bg-chart-5` (+ text variants) utilities.
-- **Grimdark and tech chart overrides** — per-theme overrides of the `--C-CHART-*` palette so categorical series stay legible against each theme's surfaces.
-- **Theme-contract + template docs** — the trend and chart tokens are documented in [docs/theme-contract.md](./docs/theme-contract.md) and listed in [src/\_theme-template.css](./src/_theme-template.css).
+### Removed
+
+- **Trend tokens** — `--C-TREND-UP` / `--C-TREND-UP-BG` / `--C-TREND-DOWN` / `--C-TREND-DOWN-BG` and their `@theme inline` mappings. Pure data-viz aliases of status; they relocate to `@batthewz/response-ui-react-components`.
+- **Categorical chart palette** — `--C-CHART-1`..`--C-CHART-5` and their `@theme inline` mappings, plus the dark-tuned per-theme overrides in [src/themes/grimdark.css](./src/themes/grimdark.css) and [src/themes/tech.css](./src/themes/tech.css). Data-viz palette; relocates to the React package.
+- **Media-card feel + carousel config** — `--MEDIA-CARD-HOVER-SCALE` / `--MEDIA-CARD-HOVER-LIFT` (and their per-theme overrides in [grimdark.css](./src/themes/grimdark.css), [tech.css](./src/themes/tech.css), [events.css](./src/themes/events.css)) and `--MEDIA-CAROUSEL-PEEK` / `--MEDIA-CAROUSEL-GAP`. Single-component config; relocates to the React package.
+- **Trend / chart docs + template entries** — dropped from [docs/theme-contract.md](./docs/theme-contract.md) and [src/\_theme-template.css](./src/_theme-template.css); they re-document under the React package.
+
+### Changed
+
+- **Renamed the universal aspect ratios** — `--MEDIA-ASPECT-WIDE` → `--ASPECT-WIDE` and `--MEDIA-ASPECT-SQUARE` → `--ASPECT-SQUARE`, dropping the domain-smuggling `MEDIA-` prefix. The `@theme inline` mappings change correspondingly, so the utilities are now `aspect-wide` / `aspect-square`. The two ratios moved from `src/tokens/media.css` to the new [src/tokens/aspect.css](./src/tokens/aspect.css) (`src/tokens/media.css` is removed; [src/tokens/index.css](./src/tokens/index.css) now imports `aspect.css`).
+
+  **Migration:** swap `--MEDIA-ASPECT-WIDE` → `--ASPECT-WIDE`, `--MEDIA-ASPECT-SQUARE` → `--ASPECT-SQUARE`, and utility classes `aspect-media-aspect-wide`/etc. → `aspect-wide` / `aspect-square`.
+
+- **Dropped `--MEDIA-ASPECT-POSTER`** (`2 / 3`) — a media-domain ratio rather than a universal layout primitive. It moves to `@batthewz/response-ui-react-components`.
 
 ## [0.5.0] — 2026-06-11
 

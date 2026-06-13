@@ -52,13 +52,6 @@
   --C-STATUS-INFO: oklch(0.7461 0.1557 233.78);
   --C-STATUS-INFO-BG: oklch(0.1846 0.0192 235.59);
 
-  /* Chart — dark-tuned, neon categorical palette */
-  --C-CHART-1: oklch(0.70 0.18 262.88);
-  --C-CHART-2: oklch(0.78 0.21 152.55);
-  --C-CHART-3: oklch(0.77 0.16 58.32);
-  --C-CHART-4: oklch(0.68 0.22 293.01);
-  --C-CHART-5: oklch(0.75 0.13 233.78);
-
   /* Radius — tight, geometric */
   --RADIUS-SM: 0.125rem;
   --RADIUS-MD: 0.25rem;
@@ -108,10 +101,6 @@
   --OVERLAY-GRADIENT-END: oklch(0.1408 0.0044 285.82 / 0.85);
   --OVERLAY-BLUR: 1rem;
   --OVERLAY-BLUR-HEAVY: 2rem;
-
-  /* Media */
-  --MEDIA-CARD-HOVER-SCALE: 1.03;
-  --MEDIA-CARD-HOVER-LIFT: -0.1875rem;
 
   /* Transitions */
   --DURATION-FAST: 80ms;
