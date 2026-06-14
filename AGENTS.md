@@ -141,7 +141,7 @@ Omit `data-theme` for the default (`:root` token set, no override layer). Set th
 
 Pulls in, in order: Google Fonts → `tailwindcss` → tokens → responsive scales → animations → built-in themes → base. No PostCSS config needed.
 
-Tailwind source scanning for `@batthewz/response-ui-react-components` is handled by **that package itself** — its `styles` entry carries a self-relative `@source`, which resolves under any node_modules layout. This entry must NOT point sideways at the sibling package (`@source "../../response-ui-react-components/…"`): such paths assume npm's hoisted layout and silently match nothing under isolated stores (bun, pnpm). For any **other** separately-installed component library used outside the consumer's own source tree, the consumer adds `@source "…"` directives after the import.
+This package registers Tailwind sources only for its **own** files. Any separately-installed library that ships components — and the consumer's own source tree — must register its own `@source`. A sideways path into another package's folder (`@source "../../some-other-package/…"`) assumes npm's hoisted layout and silently matches nothing under isolated stores (bun, pnpm), so such a library must carry a **self-relative** `@source` in its own CSS entry; the consumer adds `@source "…"` directives for any sources outside their own tree.
 
 ### Subpath exports (rare — prefer the main entry)
 

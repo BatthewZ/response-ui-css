@@ -1,6 +1,6 @@
 # @batthewz/response-ui-css
 
-CSS-first design tokens, themes, responsive scales, and animations for the response-ui design system. Built on Tailwind CSS v4. The **foundation layer** — paired with [`@batthewz/response-ui-react-components`](../response-ui-react-components/) for the component library, or used standalone from any framework (Astro, Phoenix, Rails, plain HTML) when you want the design system primitives without React.
+CSS-first design tokens, themes, responsive scales, and animations for the response-ui design system. Built on Tailwind CSS v4. The **foundation layer** — usable standalone from any framework (Astro, Phoenix, Rails, Svelte, Vue, plain HTML), or as the base for your own components and component libraries when you want the design system primitives without prescribed components.
 
 > **Live demo:** [ai-website-starter.benmatthews-it.workers.dev/demo](https://ai-website-starter.benmatthews-it.workers.dev/demo) — every component, every theme, every responsive scale, in one place.
 
@@ -23,11 +23,11 @@ One import in your app's CSS entry:
 
 That's it. The package internally pulls in `tailwindcss`, all design tokens, all four built-in themes, responsive scales, animations, and base styles. There's no `tailwind.config.js`, no PostCSS config — Tailwind v4 is CSS-first.
 
-If you're also using the React component library, add its per-component CSS next:
+If you're layering more CSS on top — a component library's styles, your own component CSS, or custom themes — import it **after** this package so it can read the tokens:
 
 ```css
 @import "@batthewz/response-ui-css";
-@import "@batthewz/response-ui-react-components/styles";
+@import "./your-other-styles.css";
 ```
 
 If you self-host fonts and want to skip the Google Fonts imports:
@@ -105,6 +105,13 @@ A theme is any selector that overrides the documented set of CSS custom properti
    ```
 
 Full schema: [docs/theme-contract.md](./docs/theme-contract.md).
+
+## Extending the foundation
+
+Building your own components, utilities, or themes on top of these tokens — in any
+framework? See [docs/extending.md](./docs/extending.md) for using and adding tokens (the
+`:root` value + `@theme inline` pattern), responsive and theme-aware tokens, and
+registering your own source with Tailwind.
 
 ## Subpath exports
 
