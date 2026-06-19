@@ -2,9 +2,15 @@
    selector, and customize the values below. Then `@import` it in your app.css
    AFTER `@import "@batthewz/response-ui-css";`.
 
-   Required variables (semantics) are defined here. Optional variables are
-   listed at the bottom — if you omit them they fall through to the defaults
-   on `:root`. See the existing themes for full examples:
+   Nothing here is strictly required — the package ships a complete default
+   theme on `:root`, so a `[data-theme]` block only overrides. Any token you
+   omit inherits the default (static ones from `:root`, responsive ones across
+   breakpoints). The main block holds the core semantic tokens (color set +
+   fonts); these are coupled, so set them together for a coherent result — e.g.
+   a dark `color-scheme`/canvas with a light default text color reads as broken.
+   Optional static tokens (radii, shadows, motion) follow, and the responsive
+   type scale, spacing & weights have their own section at the bottom. See the
+   existing themes for full examples:
        node_modules/@batthewz/response-ui-css/src/themes/grimdark.css
        node_modules/@batthewz/response-ui-css/src/themes/events.css
        node_modules/@batthewz/response-ui-css/src/themes/tech.css                 */
@@ -109,7 +115,6 @@
    <div className="flex flex-col gap-r3">
       <h1 className="text-h1 semibold">Heading</h1>
    </div>
-
    ─────────────────────────────────────────────────────────────────────────
 */
 
@@ -123,52 +128,47 @@
 /*  see the `@media` block at the bottom of this file.                      */
 /* ──────────────────────────────────────────────────────────────────────── */
 
-/* 
-   :root[data-theme="my-theme"]{
-   /* Headings 
-      --H1: 2.25rem;
-      --H1-line-height: 2.75rem;
+/* Base (mobile) values — uncomment the selector and edit only the tokens you
+   want to change. Groups: headings, body text, font weights, spacing scale. */
 
-      --H2: 1.75rem;
-      --H2-line-height: 2.25rem;
+/* :root[data-theme="my-theme"] {
+   --H1: 2.25rem;
+   --H1-line-height: 2.75rem;
 
-      --H3: 1.5rem;
-      --H3-line-height: 2rem;
+   --H2: 1.75rem;
+   --H2-line-height: 2.25rem;
 
-      --H4: 1.25rem;
-      --H4-line-height: 2rem;
+   --H3: 1.5rem;
+   --H3-line-height: 2rem;
 
-      --H5: 1.125rem;
-      --H5-line-height: 1.75rem;
+   --H4: 1.25rem;
+   --H4-line-height: 2rem;
 
-      --H6: 1rem;
-      --H6-line-height: 1.5rem;
+   --H5: 1.125rem;
+   --H5-line-height: 1.75rem;
 
-   /* Body text
-      --BodyText-1: 0.875rem;
-      --BodyText-1-line-height: 1.875rem;
+   --H6: 1rem;
+   --H6-line-height: 1.5rem;
 
-      --BodyText-2: 0.8125rem;
-      --BodyText-2-line-height: 1.5rem;
+   --BodyText-1: 0.875rem;
+   --BodyText-1-line-height: 1.875rem;
 
-      --BodyText-3: 0.75rem;
-      --BodyText-3-line-height: 1.75rem;
+   --BodyText-2: 0.8125rem;
+   --BodyText-2-line-height: 1.5rem;
 
-   /* Font weights 
-      --Semibold-Weight: 500;
-      --Bold-Weight: 600;
+   --BodyText-3: 0.75rem;
+   --BodyText-3-line-height: 1.75rem;
 
-   /* Spacing scale
-      --R-SIZE-1: 2.25rem;
-      --R-SIZE-2: 1.25rem;
-      --R-SIZE-3: 1rem;
-      --R-SIZE-4: 0.75rem;
-      --R-SIZE-5: 0.5rem;
-      --R-SIZE-6: 0.25rem; 
+   --Semibold-Weight: 500;
+   --Bold-Weight: 600;
 
-
-   }
-   */
+   --R-SIZE-1: 2.25rem;
+   --R-SIZE-2: 1.25rem;
+   --R-SIZE-3: 1rem;
+   --R-SIZE-4: 0.75rem;
+   --R-SIZE-5: 0.5rem;
+   --R-SIZE-6: 0.25rem;
+} */
 
 /* 
    ───────────────────────────────────────────────────────────────────────────   

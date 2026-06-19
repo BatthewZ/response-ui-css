@@ -1,12 +1,14 @@
 # Theme contract
 
-A theme is a CSS rule that overrides design-system tokens under a `data-theme` selector. The contract below is the authoritative list — any custom theme MUST define the **required** variables; **optional** ones inherit from `:root` if omitted.
+A theme is a CSS rule that overrides design-system tokens under a `data-theme` selector. The contract below is the authoritative list of tokens a theme can set. Nothing is strictly required — the package ships a complete default theme on `:root`, so a `data-theme` block only *overrides*, and any token you omit inherits its default. The **core** tokens (color set + fonts) are semantically coupled, though: set them together, or you'll get an incoherent result (e.g. a dark `color-scheme` with a light-theme text color). The rest are independent and rarely need changing.
 
 > Selector convention: `:root[data-theme="<name>"]`. The `default` theme IS `:root` itself (no override layer); switching to `default` removes the `data-theme` attribute.
 
 ---
 
-## Required
+## Core (semantic tokens)
+
+These have `:root` defaults like everything else, but they're the coupled set you'll usually define together for a coherent theme.
 
 ### Color scheme
 
@@ -86,9 +88,9 @@ If you use a font that's not already loaded by `@batthewz/response-ui-css`, impo
 
 ---
 
-## Optional (inherit from `:root` if omitted)
+## Optional
 
-Override only what you want to change.
+Override only what you want to change. Omitted tokens keep their package defaults — static ones from `:root`, responsive ones across both the base and the `@media (width >= 40rem)` step.
 
 ### Radius
 
@@ -226,7 +228,7 @@ When extending utilities (adding new colors, etc.), expose them via `@theme inli
    cp node_modules/@batthewz/response-ui-css/src/_theme-template.css ./src/themes/aurora.css
    ```
 2. Change the selector to `:root[data-theme="aurora"]`.
-3. Customize the required variables. Leave optionals commented out — uncomment only those you actually want to override.
+3. Customize the core tokens. Leave the rest commented out — uncomment only those you actually want to override.
 4. Import after the main package CSS:
    ```css
    @import "@batthewz/response-ui-css";
