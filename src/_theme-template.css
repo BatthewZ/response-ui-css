@@ -123,47 +123,52 @@
 /*  see the `@media` block at the bottom of this file.                      */
 /* ──────────────────────────────────────────────────────────────────────── */
 
-/* Headings 
-   --H1: 2.25rem;
-   --H1-line-height: 2.75rem;
+/* 
+   :root[data-theme="my-theme"]{
+   /* Headings 
+      --H1: 2.25rem;
+      --H1-line-height: 2.75rem;
 
-   --H2: 1.75rem;
-   --H2-line-height: 2.25rem;
+      --H2: 1.75rem;
+      --H2-line-height: 2.25rem;
 
-   --H3: 1.5rem;
-   --H3-line-height: 2rem;
+      --H3: 1.5rem;
+      --H3-line-height: 2rem;
 
-   --H4: 1.25rem;
-   --H4-line-height: 2rem;
+      --H4: 1.25rem;
+      --H4-line-height: 2rem;
 
-   --H5: 1.125rem;
-   --H5-line-height: 1.75rem;
+      --H5: 1.125rem;
+      --H5-line-height: 1.75rem;
 
-   --H6: 1rem;
-   --H6-line-height: 1.5rem;
+      --H6: 1rem;
+      --H6-line-height: 1.5rem;
 
-/* Body text
-   --BodyText-1: 0.875rem;
-   --BodyText-1-line-height: 1.875rem;
+   /* Body text
+      --BodyText-1: 0.875rem;
+      --BodyText-1-line-height: 1.875rem;
 
-   --BodyText-2: 0.8125rem;
-   --BodyText-2-line-height: 1.5rem;
+      --BodyText-2: 0.8125rem;
+      --BodyText-2-line-height: 1.5rem;
 
-   --BodyText-3: 0.75rem;
-   --BodyText-3-line-height: 1.75rem;
+      --BodyText-3: 0.75rem;
+      --BodyText-3-line-height: 1.75rem;
 
-/* Font weights 
-   --Semibold-Weight: 500;
-   --Bold-Weight: 600;
+   /* Font weights 
+      --Semibold-Weight: 500;
+      --Bold-Weight: 600;
 
-/* Spacing scale
-   --R-SIZE-1: 2.25rem;
-   --R-SIZE-2: 1.25rem;
-   --R-SIZE-3: 1rem;
-   --R-SIZE-4: 0.75rem;
-   --R-SIZE-5: 0.5rem;
-   --R-SIZE-6: 0.25rem; 
-*/
+   /* Spacing scale
+      --R-SIZE-1: 2.25rem;
+      --R-SIZE-2: 1.25rem;
+      --R-SIZE-3: 1rem;
+      --R-SIZE-4: 0.75rem;
+      --R-SIZE-5: 0.5rem;
+      --R-SIZE-6: 0.25rem; 
+
+
+   }
+   */
 
 /* 
    ───────────────────────────────────────────────────────────────────────────   
