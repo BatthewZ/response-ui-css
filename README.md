@@ -2,9 +2,11 @@
 
 The goal of this project: Reduce cognitive load for devs and AI by providing simple, standardized design tokens with sensible defaults that are overrideable. Building your project with the methodology of Response UI CSS will make it significantly easier to maintain over time.
 
+While this is a pure CSS package, it is intended to be used with Tailwind v4 and integrates with it automatically.
+
 ### There are two complementary parts to this CSS approach:
 
-1. Responsive design tokens for responsize [text](./src/responsive/text.css), [spacing](./src/responsive/spacing.css) - A single token represents different sizes across breakpoints.
+1. Responsive design tokens for responsive [text](./src/responsive/text.css), [spacing](./src/responsive/spacing.css) - A single token represents different sizes across breakpoints.
 2. An overridable [theme contract](./docs/theme-contract.md) that can be used as a basis for the style and branding of your page - Enough tokens to be comprehensive, but few enough to encourage consistency and maintainability.
 
 > **Live demo:** [ai-website-starter.benmatthews-it.workers.dev/demo](https://ai-website-starter.benmatthews-it.workers.dev/demo) — every component, every theme, every responsive scale, in one place. This demo uses [Response UI React Components](https://www.npmjs.com/package/@batthewz/response-ui-react-components) which are built using Response UI CSS.
@@ -14,9 +16,8 @@ The goal of this project: Reduce cognitive load for devs and AI by providing sim
 - Standardizes theming and styling across your components, pages and mobile/web views
 - Reduces time and cognitive load trying to get things looking right across viewports
 - Makes re-skinning components or your entire app trivial
-- Works as pure CSS (no other dependencies required)
-- Sensible defaults that are intentionally overridable and extendable
 - Integrates with Tailwind v4 out of the box as overridable custom theme tokens
+- Sensible defaults that are intentionally overridable and extendable
 - Provides structure without inhibiting flexibility
 - Includes [AGENTS.md](./AGENTS.md) for AI guidance on how to use and extend these tokens
 - Significantly reduces AI token usage due to much lighter syntax

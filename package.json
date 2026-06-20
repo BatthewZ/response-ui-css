@@ -55,6 +55,14 @@
       "default": "./src/_theme-template.css"
     }
   },
+  "peerDependencies": {
+    "tailwindcss": "^4"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": true
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
