@@ -1,6 +1,6 @@
 # Theme contract
 
-A theme is a CSS rule that overrides design-system tokens under a `data-theme` selector. The contract below is the authoritative list of tokens a theme can set. Nothing is strictly required — the package ships a complete default theme on `:root`, so a `data-theme` block only *overrides*, and any token you omit inherits its default. The **core** tokens (color set + fonts) are semantically coupled, though: set them together, or you'll get an incoherent result (e.g. a dark `color-scheme` with a light-theme text color). The rest are independent and rarely need changing.
+A theme is a CSS rule that overrides design-system tokens under a `data-theme` selector. The contract below is the authoritative list of tokens a theme can set. Nothing is strictly required — the package ships a complete default theme on `:root`, so a `data-theme` block only _overrides_, and any token you omit inherits its default. The **core** tokens (color set + fonts) are semantically coupled, though: set them together, or you'll get an incoherent result (e.g. a dark `color-scheme` with a light-theme text color). The rest are independent and rarely need changing.
 
 > Selector convention: `:root[data-theme="<name>"]`. The `default` theme IS `:root` itself (no override layer); switching to `default` removes the `data-theme` attribute.
 
@@ -20,69 +20,69 @@ Drives form-control colors, default scrollbar appearance, etc. Set this — don'
 
 ### Brand colors
 
-| Variable | Notes |
-| --- | --- |
-| `--C-CANVAS` | Page background |
-| `--C-PRIMARY` | Brand primary fill |
-| `--C-PRIMARY-HOVER` | Primary hover state |
-| `--C-PRIMARY-ACTIVE` | Primary pressed state |
-| `--C-SECONDARY` | Secondary fill |
-| `--C-SECONDARY-HOVER` | Secondary hover state |
-| `--C-ACCENT` | Brand accent (e.g. links, focus indicators) |
-| `--C-ACCENT-HOVER` | Accent hover state |
+| Variable              | Notes                                       |
+| --------------------- | ------------------------------------------- |
+| `--C-CANVAS`          | Page background                             |
+| `--C-PRIMARY`         | Brand primary fill                          |
+| `--C-PRIMARY-HOVER`   | Primary hover state                         |
+| `--C-PRIMARY-ACTIVE`  | Primary pressed state                       |
+| `--C-SECONDARY`       | Secondary fill                              |
+| `--C-SECONDARY-HOVER` | Secondary hover state                       |
+| `--C-ACCENT`          | Brand accent (e.g. links, focus indicators) |
+| `--C-ACCENT-HOVER`    | Accent hover state                          |
 
 All colors are OKLCH. Use OKLCH in your custom theme.
 
 ### Surfaces (layered backgrounds)
 
-| Variable | Use |
-| --- | --- |
+| Variable        | Use                                                                 |
+| --------------- | ------------------------------------------------------------------- |
 | `--C-SURFACE-0` | Most foreground / most-elevated (usually on top of a popover scrim) |
-| `--C-SURFACE-1` | Cards, navbar |
-| `--C-SURFACE-2` | Slightly deeper containers |
-| `--C-SURFACE-3` | Deepest container, often used for inputs/recessed regions |
+| `--C-SURFACE-1` | Cards, navbar                                                       |
+| `--C-SURFACE-2` | Slightly deeper containers                                          |
+| `--C-SURFACE-3` | Deepest container, often used for inputs/recessed regions           |
 
 For light themes these typically run from white → light gray. For dark themes, dark → slightly lighter shades.
 
 ### Text
 
-| Variable | Use |
-| --- | --- |
-| `--C-TEXT-PRIMARY` | Default body text |
-| `--C-TEXT-SECONDARY` | De-emphasized text (captions, helpers) |
-| `--C-TEXT-MUTED` | Most-muted (placeholders, hints) |
-| `--C-TEXT-INVERSE` | Text on a dark surface in a light theme (and vice versa) |
-| `--C-TEXT-ON-PRIMARY` | Text drawn on `--C-PRIMARY` fill |
-| `--C-TEXT-ON-ACCENT` | Text drawn on `--C-ACCENT` fill |
+| Variable              | Use                                                      |
+| --------------------- | -------------------------------------------------------- |
+| `--C-TEXT-PRIMARY`    | Default body text                                        |
+| `--C-TEXT-SECONDARY`  | De-emphasized text (captions, helpers)                   |
+| `--C-TEXT-MUTED`      | Most-muted (placeholders, hints)                         |
+| `--C-TEXT-INVERSE`    | Text on a dark surface in a light theme (and vice versa) |
+| `--C-TEXT-ON-PRIMARY` | Text drawn on `--C-PRIMARY` fill                         |
+| `--C-TEXT-ON-ACCENT`  | Text drawn on `--C-ACCENT` fill                          |
 
 ### Borders
 
-| Variable | Use |
-| --- | --- |
+| Variable             | Use                            |
+| -------------------- | ------------------------------ |
 | `--C-BORDER-DEFAULT` | Default border (cards, inputs) |
-| `--C-BORDER-STRONG` | Higher-contrast border |
-| `--C-BORDER-FOCUS` | Focus ring color |
+| `--C-BORDER-STRONG`  | Higher-contrast border         |
+| `--C-BORDER-FOCUS`   | Focus ring color               |
 
 ### Status
 
 Each status has a foreground color and a tinted background:
 
-| Foreground | Background |
-| --- | --- |
-| `--C-STATUS-ERROR` | `--C-STATUS-ERROR-BG` |
+| Foreground           | Background              |
+| -------------------- | ----------------------- |
+| `--C-STATUS-ERROR`   | `--C-STATUS-ERROR-BG`   |
 | `--C-STATUS-SUCCESS` | `--C-STATUS-SUCCESS-BG` |
 | `--C-STATUS-WARNING` | `--C-STATUS-WARNING-BG` |
-| `--C-STATUS-INFO` | `--C-STATUS-INFO-BG` |
+| `--C-STATUS-INFO`    | `--C-STATUS-INFO-BG`    |
 
 ### Typography
 
-| Variable | Notes |
-| --- | --- |
-| `--DEFAULT-FONT` | Body font-family |
-| `--DEFAULT-MONO-FONT` | Monospace font-family |
-| `--HEADING-FONT` | Heading font-family (often = `--DEFAULT-FONT`) |
-| `--HEADING-LETTER-SPACING` | `normal` or a `<length>` like `0.06em` |
-| `--HEADING-TEXT-TRANSFORM` | `none` / `uppercase` / `lowercase` |
+| Variable                   | Notes                                          |
+| -------------------------- | ---------------------------------------------- |
+| `--DEFAULT-FONT`           | Body font-family                               |
+| `--DEFAULT-MONO-FONT`      | Monospace font-family                          |
+| `--HEADING-FONT`           | Heading font-family (often = `--DEFAULT-FONT`) |
+| `--HEADING-LETTER-SPACING` | `normal` or a `<length>` like `0.06em`         |
+| `--HEADING-TEXT-TRANSFORM` | `none` / `uppercase` / `lowercase`             |
 
 If you use a font that's not already loaded by `@batthewz/response-ui-css`, import the font-face yourself before your theme CSS.
 
@@ -116,11 +116,11 @@ Three token families share one numbering rule and one breakpoint:
 - Each token has a **mobile-first base** and an **automatic step-up at `@media (width >= 40rem)`** (640px). That's where the `r` / "responsive" naming on the utilities comes from.
 - If you override any of these tokens in a theme, override **both** breakpoints in the same media-query structure as [`src/responsive/text.css`](../src/responsive/text.css) and [`src/responsive/spacing.css`](../src/responsive/spacing.css).
 
-| Family | Tokens | Count | Notes |
-| --- | --- | --- | --- |
-| Headings | `--H1, --H1-line-height` … `--H6, --H6-line-height` | 6 | Numbering mirrors HTML `<h1>`–`<h6>`, so `--H2` is what's applied to `<h2>` (and to `.h2` / `text-h2`). |
-| Body text | `--BodyText-1, --BodyText-1-line-height` … `--BodyText-3, --BodyText-3-line-height` | 3 | Large / base / fine. Drives `text-body-1`..`text-body-3`. |
-| Spacing | `--R-SIZE-1` … `--R-SIZE-6` | 6 | `R-SIZE-1` is the largest gap, `R-SIZE-6` the tightest. Drives `p-r1`..`p-r6`, `m-r1`..`m-r6`, `gap-r1`..`gap-r6`, and every other Tailwind spacing utility. |
+| Family    | Tokens                                                                              | Count | Notes                                                                                                                                                        |
+| --------- | ----------------------------------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Headings  | `--H1, --H1-line-height` … `--H6, --H6-line-height`                                 | 6     | Numbering mirrors HTML `<h1>`–`<h6>`, so `--H2` is what's applied to `<h2>` (and to `.h2` / `text-h2`).                                                      |
+| Body text | `--BodyText-1, --BodyText-1-line-height` … `--BodyText-3, --BodyText-3-line-height` | 3     | Large / base / fine. Drives `text-body-1`..`text-body-3`.                                                                                                    |
+| Spacing   | `--R-SIZE-1` … `--R-SIZE-6`                                                         | 6     | `R-SIZE-1` is the largest gap, `R-SIZE-6` the tightest. Drives `p-r1`..`p-r6`, `m-r1`..`m-r6`, `gap-r1`..`gap-r6`, and every other Tailwind spacing utility. |
 
 ### Line heights — paired with every size, also responsive
 
@@ -186,36 +186,36 @@ Generic layout primitives for any image/video. Map to `aspect-wide` (`16 / 9`) a
 
 `@theme inline` blocks expose tokens to Tailwind utilities. The mapping follows a `--SCREAMING-CASE-FOR-TOKEN` → `lowercase-kebab-for-utility` convention with one wrinkle: `--C-TEXT-*` → `text-fg-*`.
 
-| Token | Utility |
-| --- | --- |
-| `--C-CANVAS` | `bg-canvas` |
+| Token                                   | Utility                                                                                  |
+| --------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `--C-CANVAS`                            | `bg-canvas`                                                                              |
 | `--C-PRIMARY` (and `-HOVER`, `-ACTIVE`) | `bg-primary`, `bg-primary-hover`, `bg-primary-active` (also `text-`, `border-`, `ring-`) |
-| `--C-SECONDARY` (and `-HOVER`) | `bg-secondary`, `bg-secondary-hover` |
-| `--C-ACCENT` (and `-HOVER`) | `bg-accent`, `bg-accent-hover` |
-| `--C-SURFACE-0..3` | `bg-surface-0`, `bg-surface-1`, `bg-surface-2`, `bg-surface-3` |
-| `--C-TEXT-PRIMARY` | `text-fg-primary` |
-| `--C-TEXT-SECONDARY` | `text-fg-secondary` |
-| `--C-TEXT-MUTED` | `text-fg-muted` |
-| `--C-TEXT-INVERSE` | `text-fg-inverse` |
-| `--C-TEXT-ON-PRIMARY` | `text-fg-on-primary` |
-| `--C-TEXT-ON-ACCENT` | `text-fg-on-accent` |
-| `--C-BORDER-DEFAULT` | `border-border-default`, `ring-border-default` |
-| `--C-BORDER-STRONG` | `border-border-strong` |
-| `--C-BORDER-FOCUS` | `border-border-focus`, `ring-border-focus` |
-| `--C-STATUS-ERROR` | `text-status-error`, `bg-status-error` |
-| `--C-STATUS-ERROR-BG` | `bg-status-error-bg` |
-| (same for SUCCESS, WARNING, INFO) | |
-| `--ASPECT-WIDE` | `aspect-wide` |
-| `--ASPECT-SQUARE` | `aspect-square` |
-| `--R-SIZE-1..6` | `p-r1`..`p-r6`, `m-r1`..`m-r6`, `gap-r1`..`gap-r6` (works with all spacing utilities) |
-| `--H1..H6` | `text-h1`..`text-h6` |
-| `--BodyText-1..3` | `text-body-1`, `text-body-2`, `text-body-3` |
-| `--RADIUS-SM..XL` | `rounded-sm`, `rounded-md`, `rounded-lg`, `rounded-xl` |
-| `--RADIUS-FULL` | `rounded-full` |
-| `--SHADOW-SM..LG` | `shadow-sm`, `shadow-md`, `shadow-lg` |
-| `--MOTION-DURATION-ENTER` | `duration-enter` |
-| `--MOTION-EASE-ENTER` | `ease-enter` |
-| `--DURATION-FAST` | `duration-fast` |
+| `--C-SECONDARY` (and `-HOVER`)          | `bg-secondary`, `bg-secondary-hover`                                                     |
+| `--C-ACCENT` (and `-HOVER`)             | `bg-accent`, `bg-accent-hover`                                                           |
+| `--C-SURFACE-0..3`                      | `bg-surface-0`, `bg-surface-1`, `bg-surface-2`, `bg-surface-3`                           |
+| `--C-TEXT-PRIMARY`                      | `text-fg-primary`                                                                        |
+| `--C-TEXT-SECONDARY`                    | `text-fg-secondary`                                                                      |
+| `--C-TEXT-MUTED`                        | `text-fg-muted`                                                                          |
+| `--C-TEXT-INVERSE`                      | `text-fg-inverse`                                                                        |
+| `--C-TEXT-ON-PRIMARY`                   | `text-fg-on-primary`                                                                     |
+| `--C-TEXT-ON-ACCENT`                    | `text-fg-on-accent`                                                                      |
+| `--C-BORDER-DEFAULT`                    | `border-border-default`, `ring-border-default`                                           |
+| `--C-BORDER-STRONG`                     | `border-border-strong`                                                                   |
+| `--C-BORDER-FOCUS`                      | `border-border-focus`, `ring-border-focus`                                               |
+| `--C-STATUS-ERROR`                      | `text-status-error`, `bg-status-error`                                                   |
+| `--C-STATUS-ERROR-BG`                   | `bg-status-error-bg`                                                                     |
+| (same for SUCCESS, WARNING, INFO)       |                                                                                          |
+| `--ASPECT-WIDE`                         | `aspect-wide`                                                                            |
+| `--ASPECT-SQUARE`                       | `aspect-square`                                                                          |
+| `--R-SIZE-1..6`                         | `p-r1`..`p-r6`, `m-r1`..`m-r6`, `gap-r1`..`gap-r6` (works with all spacing utilities)    |
+| `--H1..H6`                              | `text-h1`..`text-h6`                                                                     |
+| `--BodyText-1..3`                       | `text-body-1`, `text-body-2`, `text-body-3`                                              |
+| `--RADIUS-SM..XL`                       | `rounded-sm`, `rounded-md`, `rounded-lg`, `rounded-xl`                                   |
+| `--RADIUS-FULL`                         | `rounded-full`                                                                           |
+| `--SHADOW-SM..LG`                       | `shadow-sm`, `shadow-md`, `shadow-lg`                                                    |
+| `--MOTION-DURATION-ENTER`               | `duration-enter`                                                                         |
+| `--MOTION-EASE-ENTER`                   | `ease-enter`                                                                             |
+| `--DURATION-FAST`                       | `duration-fast`                                                                          |
 
 When extending utilities (adding new colors, etc.), expose them via `@theme inline` so the classes are generated — see [docs/extending.md](./extending.md). If your project uses a `tailwind-merge`-based class helper, also register the new utility names there so conflicting classes still collapse correctly.
 
@@ -234,8 +234,14 @@ When extending utilities (adding new colors, etc.), expose them via `@theme inli
    @import "@batthewz/response-ui-css";
    @import "./themes/aurora.css";
    ```
-5. Register the theme name with `useTheme`:
-   ```tsx
-   const { setTheme } = useTheme({ themes: ["default", "aurora"] as const });
-   setTheme("aurora");
+5. Activate it by setting `data-theme` on `<html>`:
+   ```html
+   <html data-theme="aurora">
+     <!-- etc -->
+   </html>
+   ```
+   or dynamically in `js`:
+   ```ts
+   document.documentElement.setAttribute("data-theme", "aurora");
+   // removeAttribute("data-theme") to return to the default theme
    ```

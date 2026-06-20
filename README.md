@@ -21,6 +21,7 @@ While this is a pure CSS package, it is intended to be used with Tailwind v4 and
 - Provides structure without inhibiting flexibility
 - Includes [AGENTS.md](./AGENTS.md) for AI guidance on how to use and extend these tokens
 - Significantly reduces AI token usage due to much lighter syntax
+- Once integrated, change the entire feel of your page (everything from spacing, sizing and colours through to fonts, shadows, rounding and animation timing/easing) with only ~1 page of CSS.
 
 **Example WITHOUT responsive tokens**
 
@@ -75,6 +76,8 @@ If you self-host fonts and want to skip the Google Fonts imports:
 ```css
 @import "@batthewz/response-ui-css/no-fonts";
 ```
+
+The full token list and guide is in [docs/theme-contract.md](./docs/theme-contract.md) and [docs/extending.md](./docs/extending.md) for how best to work with this package with your own components.
 
 ## The responsive scale
 

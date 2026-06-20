@@ -182,6 +182,37 @@ The complete required/optional schema is in [docs/theme-contract.md](./theme-con
 
 ---
 
+### Scoped overrides — retheme one subtree inline
+
+Scoped overrides should be the exception, not the rule; but they are a design escape hatch
+should you choose to work with it.You don't always need a whole theme. Because every utility
+reads its token through `var()` at the point of use (that's what `@theme inline` buys you —
+a plain `@theme` would bake the value into the class and this wouldn't work), you can re-
+point a token for one element and its descendants with nothing but a `style` attribute:
+
+```html
+<section
+  style="--C-PRIMARY: oklch(0.62 0.19 28); --C-TEXT-ON-PRIMARY: oklch(0.99 0 0)"
+>
+  <!-- every bg-primary / text-fg-on-primary / ring-fg-on-primary in here re-points -->
+  <button class="bg-primary text-fg-on-primary px-r5 py-r6 rounded-md">
+    Buy now
+  </button>
+</section>
+```
+
+It cascades like any custom property: the override wins for that subtree and nothing else,
+and a `data-theme` switch still flows through underneath it. Two rules keep it honest:
+
+- **Override the pair, not just the fill.** Re-point `--C-PRIMARY` and `--C-TEXT-ON-PRIMARY`
+  together — change the fill alone and you've broken the contrast contract for that subtree.
+- **Don't inline-override responsive tokens** (`--R-SIZE-*`, `--H*`, `--BodyText-*`). Their
+  breakpoint step is an `@media` rule on `:root`; an inline value on an element outranks it
+  at every width and flattens the responsive bump. Scope colours, radius, shadow, motion —
+  not the responsive scales.
+
+---
+
 ## Checklist
 
 - [ ] Imported tokens (raw `var(--…)` or generated utilities), never raw hex / `rem` / Tailwind defaults
