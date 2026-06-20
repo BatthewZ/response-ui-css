@@ -75,12 +75,10 @@
 * ------------
 *   Tailwind
 * ------------
+* use 'inline' to allow overriding
+* You can do inline overrides with this syntax: [--H1:3.5rem]
 */
 
-/* 
- use 'inline' to allow overriding
- You can do inline overrides with this syntax: [--R-SIZE-1:1.25rem]
- */
 @theme inline {
   --text-h1: var(--H1);
   --text-h1--line-height: var(--H1-line-height);
