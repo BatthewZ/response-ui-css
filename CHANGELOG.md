@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.9.0] — 2026-07-25
+
 ### Fixed
 
 - **The focus-ring offset no longer paints white on every dark theme.** Tailwind registers `--tw-ring-offset-color` as an `@property` with an initial value of `#fff` and `inherits: false`, so every `ring-offset-*` utility punched an un-themeable white gap between an element and its focus ring — correct on a white page, a bright halo on `grimdark` and `tech`. `src/base.css` now defaults the variable to `var(--C-SURFACE-0)` for `*`, `::before`, `::after` and `::backdrop`, so the gap tracks the theme. Measured in a real engine before and after: a focused control reported `--tw-ring-offset-color: oklch(1 0 0)` in every theme beforehand, and `oklch(0.1684 0 0)` — grimdark's `--C-SURFACE-0` — afterwards.
@@ -13,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   The rule is deliberately inside `@layer base`: an unlayered rule would out-rank Tailwind's `utilities` layer and make an explicit `ring-offset-<color>` utility unable to override it. Verified by walking the CSSOM for the rule and asserting its enclosing layer.
 
   **This changes rendered output for any consumer using a `ring-offset-*` utility.** If you were relying on the white gap, restore it per call site with `ring-offset-white`, or globally by re-declaring `--tw-ring-offset-color` after this package's import. **Revert:** delete the `@layer base` block under "Focus ring offset" in [src/base.css](./src/base.css).
+
+## [0.7.0] and [0.8.0] — not documented
+
+Both versions were published to npm and neither was recorded here, so this file jumps from 0.6.0 to 0.9.0. Nothing has been reconstructed for them after the fact: no record of their contents was kept at release time, and inventing one would be worse than the gap. The published tarballs and this repository's commit history between the 0.6.0 and 0.8.0 releases are the only account of what changed.
 
 ## [0.6.0] — 2026-06-13
 
