@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- **`--C-BORDER-FOCUS` now meets WCAG 1.4.11 in every shipped theme.** The `events` and `grimdark`
+  focus rings were byte-identical copies of those themes' *pre-retune* `--C-ACCENT` literals, so the
+  0.9.0 accent retune left them behind: measured **2.72:1** and **2.96:1** on `--C-SURFACE-0`,
+  falling to 2.52 and 2.55 on `--C-SURFACE-2`, against a 3:1 floor for a non-text indicator. Retuned
+  in lightness only — hue and chroma byte-identical, as with every retune before it — to
+  `oklch(0.6474 0.1867 47.6)` and `oklch(0.5549 0.1905 27.52)`. All four themes now clear the floor
+  on `--C-SURFACE-0`/`-1`/`-2` with headroom: **3.39/3.29/3.15** (`events`), **3.66/3.43/3.15**
+  (`grimdark`), 3.68/3.52/3.34 (default, unchanged), 14.84/14.56/13.70 (`tech`, unchanged).
+
+  The default theme was checked and deliberately **not** touched: its focus ring differs from its
+  accent in lightness, chroma *and* hue, and it already passes. That is a design choice, not drift.
+
+  Ring-against-accent-fill was checked for regression and is not a real adjacency: filled buttons use
+  `ring-offset-2`, which paints a `--C-SURFACE-0` band between the fill and the ring, so the pairing
+  that occurs on screen is ring-against-surface — the one that improved.
+
 ## [0.9.0] — 2026-07-25
 
 > Amended 2026-07-26 with the `--C-TEXT-MUTED` retune, and again the same day with the

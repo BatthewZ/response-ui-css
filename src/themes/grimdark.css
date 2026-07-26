@@ -40,7 +40,7 @@
   /* Border — iron and rust */
   --C-BORDER-DEFAULT: oklch(0.2872 0.0121 78.1);
   --C-BORDER-STRONG: oklch(0.5211 0.0192 76.79);
-  --C-BORDER-FOCUS: oklch(0.5054 0.1905 27.52);
+  --C-BORDER-FOCUS: oklch(0.5549 0.1905 27.52);
 
   /* Status */
   --C-STATUS-ERROR: oklch(0.6368 0.2078 25.33);

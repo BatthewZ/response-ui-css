@@ -38,7 +38,7 @@
   /* Border */
   --C-BORDER-DEFAULT: oklch(0.9232 0.0026 48.72);
   --C-BORDER-STRONG: oklch(0.6427 0.0043 56.37);
-  --C-BORDER-FOCUS: oklch(0.7049 0.1867 47.6);
+  --C-BORDER-FOCUS: oklch(0.6474 0.1867 47.6);
 
   /* Status */
   --C-STATUS-ERROR: oklch(0.5771 0.2152 27.33);
