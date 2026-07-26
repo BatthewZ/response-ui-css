@@ -32,7 +32,7 @@
   /* Text — parchment on dark */
   --C-TEXT-PRIMARY: oklch(0.8285 0.0414 83.1);
   --C-TEXT-SECONDARY: oklch(0.6512 0.0346 82.7);
-  --C-TEXT-MUTED: oklch(0.4517 0.0252 85.94);
+  --C-TEXT-MUTED: oklch(0.6186 0.0252 85.94);
   --C-TEXT-INVERSE: oklch(0.1684 0 0);
   --C-TEXT-ON-PRIMARY: oklch(0.8285 0.0414 83.1);
   --C-TEXT-ON-ACCENT: oklch(0.8285 0.0414 83.1);
