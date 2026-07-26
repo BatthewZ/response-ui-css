@@ -32,7 +32,7 @@
   /* Text — high contrast, clinical */
   --C-TEXT-PRIMARY: oklch(0.9551 0 0);
   --C-TEXT-SECONDARY: oklch(0.635 0.0357 285.34);
-  --C-TEXT-MUTED: oklch(0.3957 0.0369 284.59);
+  --C-TEXT-MUTED: oklch(0.5937 0.0369 284.59);
   --C-TEXT-INVERSE: oklch(0.1408 0.0044 285.82);
   --C-TEXT-ON-PRIMARY: oklch(0.8763 0.2278 152.55);
   --C-TEXT-ON-ACCENT: oklch(0.1408 0.0044 285.82);

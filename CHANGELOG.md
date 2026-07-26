@@ -8,7 +8,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [0.9.0] — 2026-07-25
 
+> Amended 2026-07-26 with the `--C-TEXT-MUTED` retune below. 0.9.0 was cut but **never
+> published** — npm's latest is 0.8.0 — so this is an amendment to an unreleased section, not a
+> rewrite of shipped history. Folding it in rather than cutting 0.10.0 keeps
+> `@batthewz/response-ui-react-components`'s `^0.9.0` dependency and the renderer's peer range
+> valid without a second bump through the chain.
+
 ### Fixed
+
+- **`--C-TEXT-MUTED` now meets WCAG AA on every surface it is actually painted on, in all four themes.** It previously failed AA *and* AA-large everywhere — the best any theme managed was **2.59:1** against `--C-SURFACE-0`, and the worst was 2.06:1. Muted text is not decorative here: it is the placeholder in every text control, the outside-month day in `Calendar`, the tag-remove affordance in `MultiSelect`, and the secondary line in `FileUpload`, `StatCard`, `Breadcrumbs` and `Timeline`.
+
+  | Theme | Before | After | on `SURFACE-0` / `-1` / `-2` |
+  | --- | --- | --- | --- |
+  | default | `oklch(0.7137 0.0192 261.32)` | `oklch(0.5451 0.0192 261.32)` | 4.95 · 4.74 · 4.50 |
+  | events | `oklch(0.7161 0.0091 56.26)` | `oklch(0.5435 0.0091 56.26)` | 4.85 · 4.70 · 4.50 |
+  | tech | `oklch(0.3957 0.0369 284.59)` | `oklch(0.5937 0.0369 284.59)` | 4.87 · 4.78 · 4.50 |
+  | grimdark | `oklch(0.4517 0.0252 85.94)` | `oklch(0.6186 0.0252 85.94)` | 5.23 · 4.90 · 4.50 |
+
+  **Only lightness moved** — every theme keeps its own chroma and hue, so the muted tone still reads as that theme's grey/parchment/blue rather than a neutral. Note the direction is *not* uniform: the light themes darken, and `tech` and `grimdark` **lighten**, because on a dark surface contrast is gained by moving up.
+
+  The floor is `SURFACE-0` through `SURFACE-2`. `SURFACE-3` is excluded deliberately: every place muted text meets it is an inactive control (`.combobox-input:disabled`, `.multiselect[data-disabled]`, and the `disabled:bg-surface-3` recipe shared by `Input`/`Textarea`/`Select`), which WCAG 2.2 §1.4.3 exempts. Those pairs land at 3.92–4.10:1.
+
+  **Known residual on the dark themes.** `tech` and `grimdark` cannot fit three AA-passing text steps in the lightness they have — their own `--C-TEXT-SECONDARY` only reaches 5.76:1 and 5.95:1. Muted therefore ends up close to secondary (0.041 and 0.033 apart in OKLCH L) and the two are now hard to tell apart, though the ordering is still correct. Widening that gap means lifting `--C-TEXT-SECONDARY` on both themes, which is a separate decision and is not taken here.
+
+  **This changes rendered output for every consumer**, on every theme, anywhere `text-fg-muted` / `--C-TEXT-MUTED` is used. **Revert:** restore the four values in the "Before" column above ([src/tokens/colors.css](./src/tokens/colors.css), [src/themes/events.css](./src/themes/events.css), [src/themes/tech.css](./src/themes/tech.css), [src/themes/grimdark.css](./src/themes/grimdark.css)).
 
 - **The focus-ring offset no longer paints white on every dark theme.** Tailwind registers `--tw-ring-offset-color` as an `@property` with an initial value of `#fff` and `inherits: false`, so every `ring-offset-*` utility punched an un-themeable white gap between an element and its focus ring — correct on a white page, a bright halo on `grimdark` and `tech`. `src/base.css` now defaults the variable to `var(--C-SURFACE-0)` for `*`, `::before`, `::after` and `::backdrop`, so the gap tracks the theme. Measured in a real engine before and after: a focused control reported `--tw-ring-offset-color: oklch(1 0 0)` in every theme beforehand, and `oklch(0.1684 0 0)` — grimdark's `--C-SURFACE-0` — afterwards.
 

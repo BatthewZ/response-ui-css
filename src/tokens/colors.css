@@ -20,7 +20,7 @@
   /* Text */
   --C-TEXT-PRIMARY: oklch(0.2101 0.0318 264.66);
   --C-TEXT-SECONDARY: oklch(0.4461 0.0263 256.8);
-  --C-TEXT-MUTED: oklch(0.7137 0.0192 261.32);
+  --C-TEXT-MUTED: oklch(0.5451 0.0192 261.32);
   --C-TEXT-INVERSE: oklch(1 0 0);
   --C-TEXT-ON-PRIMARY: oklch(1 0 0);
   --C-TEXT-ON-ACCENT: oklch(1 0 0);

@@ -30,7 +30,7 @@
   /* Text */
   --C-TEXT-PRIMARY: oklch(0.2161 0.0061 56.04);
   --C-TEXT-SECONDARY: oklch(0.4444 0.0096 73.64);
-  --C-TEXT-MUTED: oklch(0.7161 0.0091 56.26);
+  --C-TEXT-MUTED: oklch(0.5435 0.0091 56.26);
   --C-TEXT-INVERSE: oklch(1 0 0);
   --C-TEXT-ON-PRIMARY: oklch(1 0 0);
   --C-TEXT-ON-ACCENT: oklch(1 0 0);
