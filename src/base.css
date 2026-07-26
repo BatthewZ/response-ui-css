@@ -27,6 +27,27 @@ html {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Focus ring offset                                                  */
+/* ------------------------------------------------------------------ */
+/* Tailwind registers `--tw-ring-offset-color` with an initial value of `#fff`
+   and `inherits: false`, so every `ring-offset-*` utility punches a white gap
+   between the element and its focus ring — correct on a white page, a bright
+   halo on every dark theme. Default it to the base surface instead.
+
+   This sits in `@layer base` deliberately: unlayered rules outrank Tailwind's
+   `utilities` layer, which would make an explicit `ring-offset-<color>`
+   utility unable to override it. */
+
+@layer base {
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    --tw-ring-offset-color: var(--C-SURFACE-0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /*  Global scrollbars                                                  */
 /* ------------------------------------------------------------------ */
 /* Theme-aware scrollbars across the app. Firefox uses scrollbar-color;
