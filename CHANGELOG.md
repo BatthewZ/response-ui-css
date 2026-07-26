@@ -8,13 +8,55 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [0.9.0] — 2026-07-25
 
-> Amended 2026-07-26 with the `--C-TEXT-MUTED` retune below. 0.9.0 was cut but **never
-> published** — npm's latest is 0.8.0 — so this is an amendment to an unreleased section, not a
-> rewrite of shipped history. Folding it in rather than cutting 0.10.0 keeps
-> `@batthewz/response-ui-react-components`'s `^0.9.0` dependency and the renderer's peer range
-> valid without a second bump through the chain.
+> Amended 2026-07-26 with the `--C-TEXT-MUTED` retune, and again the same day with the
+> `--C-ACCENT` / `--C-TEXT-ON-ACCENT` / `--C-BORDER-STRONG` / `--C-STATUS-SUCCESS` retune below.
+> 0.9.0 was cut but **never published** — npm's latest is 0.8.0 — so these are amendments to an
+> unreleased section, not a rewrite of shipped history. Folding them in rather than cutting
+> 0.10.0 keeps `@batthewz/response-ui-react-components`'s `^0.9.0` dependency and the renderer's
+> peer range valid without a second bump through the chain.
 
 ### Fixed
+
+- **Four more token pairings now meet WCAG AA / 1.4.11.** Same method as the `--C-TEXT-MUTED` retune below: **only lightness moved, on every token** — hue and chroma are byte-identical to before, so each theme keeps its own orange / red / green / grey.
+
+  **`--C-BORDER-STRONG` on the surfaces (WCAG 1.4.11, ≥ 3:1).** This is the boundary of every form control — `Input`, `Textarea`, `Select`, `NumberInput`, `SearchInput`, `TagInput`, `OTPInput`, `Checkbox`, `Combobox`, `ColorPicker`, `MultiSelect` — plus the inset ring that is the *entire* "today" signal in `Calendar` and the hover ring on `Stepper`. It failed in all four themes, worse than 1.8:1 everywhere.
+
+  | Theme | Before | After | on `SURFACE-0` / `-1` / `-2` |
+  | --- | --- | --- | --- |
+  | default | `oklch(0.8717 0.0093 258.34)` | `oklch(0.6446 0.0093 258.34)` | 1.47→3.30 · 1.41→3.16 · 1.34→3.00 |
+  | events | `oklch(0.8687 0.0043 56.37)` | `oklch(0.6427 0.0043 56.37)` | 1.44→3.23 · 1.40→3.13 · 1.34→3.00 |
+  | grimdark | `oklch(0.364 0.0192 76.79)` | `oklch(0.5211 0.0192 76.79)` | 1.79→3.49 · 1.67→3.26 · 1.54→3.00 |
+  | tech | `oklch(0.2922 0.029 284.46)` | `oklch(0.4968 0.029 284.46)` | 1.41→3.25 · 1.39→3.19 · 1.30→3.00 |
+
+  The floor is `SURFACE-0` through `SURFACE-2`, matching the `--C-TEXT-MUTED` precedent. `SURFACE-3` is excluded for the same reason: `border-strong` only meets it through the `disabled:bg-surface-3` recipe, and WCAG 2.2 §1.4.11 exempts inactive components. Those pairs land at 2.61–2.73:1.
+
+  **`--C-STATUS-SUCCESS` as text (≥ 4.5:1).** The `success` `Badge` / `Alert` / `Toast` ink, `FileUpload`'s success message, and `StatCard`'s upward trend line (via the React package's `--C-TREND-UP` alias) all sat at ~3.15:1. `grimdark` and `tech` already passed and are untouched; `default` and `events` share one value, retuned once and mirrored.
+
+  | Theme | Before | After | on `SURFACE-1` / `STATUS-SUCCESS-BG` |
+  | --- | --- | --- | --- |
+  | default | `oklch(0.6271 0.1699 149.21)` | `oklch(0.5307 0.1699 149.21)` | 3.15→4.58 · 3.15→4.57 |
+  | events | `oklch(0.6271 0.1699 149.21)` | `oklch(0.5307 0.1699 149.21)` | 3.10→4.50 · 3.15→4.57 |
+  | grimdark | unchanged | unchanged | 7.87 · 6.70 |
+  | tech | unchanged | unchanged | 14.56 · 13.39 |
+
+  **`--C-ACCENT` as ink, and `--C-TEXT-ON-ACCENT` on it (≥ 4.5:1 each).** Accent is painted as body text in `Swimlane`'s "view all", `FileUpload`'s "browse", `Button`'s `link` variant, `Breadcrumbs` hover, the selected `Tabs` label and `MultiSelect`'s check glyph — accent-as-ink, not accent-as-fill. It is *simultaneously* the fill behind `--C-TEXT-ON-ACCENT` in `Calendar`'s selected day, `Pagination`'s current page and the `Tabs` pill. **These two pull in opposite directions**: separating accent from the surface moves it toward its own text.
+
+  | Theme | `--C-ACCENT` before → after | ink on `SURFACE-0`/`-1`/`-2` | `ON-ACCENT` before → after | on `ACCENT` / `ACCENT-HOVER` |
+  | --- | --- | --- | --- | --- |
+  | default | unchanged | 5.17 · 4.95 · 4.70 | unchanged | 5.17 · 6.70 |
+  | events | `oklch(0.7049 0.1867 47.6)` → `oklch(0.5575 0.1867 47.6)` | 2.72→4.85 · 2.63→4.70 · 2.52→**4.50** | unchanged (`oklch(1 0 0)`) | 2.80→5.00 · 3.56→6.47 |
+  | grimdark | `oklch(0.5054 0.1905 27.52)` → `oklch(0.6618 0.1905 27.52)` | 2.96→5.69 · 2.77→5.32 · 2.55→4.89 | `oklch(0.8285 0.0414 83.1)` → `oklch(0.1684 0.0414 83.1)` | 3.81→5.69 · 4.89→**4.50** |
+  | tech | unchanged | 14.84 · 14.56 · 13.70 | unchanged | 14.84 · 11.32 |
+
+  In `events` the two requirements happen to agree — `--C-TEXT-ON-ACCENT` is white, so darkening the accent improves both. **In `grimdark` they cannot both be satisfied with a light `--C-TEXT-ON-ACCENT` at all.** Lifting the accent far enough to read as ink on `SURFACE-2` puts its luminance above 0.236; against *pure white* that is only 3.66:1, so no light on-accent value exists. The token is therefore inverted: it keeps grimdark's parchment hue and chroma (`0.0414 / 83.1`) and drops to the theme's own dark-ink lightness, `0.1684` — the same lightness as `--C-TEXT-INVERSE` and `--C-SURFACE-0`. Dark parchment on a lit red, rather than light parchment on a dark red.
+
+  `--C-ACCENT-HOVER` moved with the accent in both themes, by the identical lightness delta, so the hover step is unchanged in size and direction. It is not optional: `Calendar`'s selected-day hover swaps the fill to `--C-ACCENT-HOVER` while `--C-TEXT-ON-ACCENT` stays, so on-accent must clear the hover fill too, and leaving hover behind would have inverted the state (a hover *lighter* than rest in `events`).
+
+  **Gamut note.** At their new lightnesses `events`' accent/accent-hover and the shared success green sit slightly outside sRGB at their declared chroma, so a browser gamut-maps them to roughly 82% / 89% of the written chroma. The ratios above are computed against the *mapped* colour, pessimistically across both plausible mapping strategies (constant-lightness chroma reduction and per-channel clipping), so they hold either way. The declared chroma is left untouched rather than pre-reduced: the rendered result is identical, and writing a reduced chroma would be a chroma edit.
+
+  **Not taken here, deliberately.** `--C-BORDER-FOCUS` is a byte-identical copy of the old `--C-ACCENT` in `events` and `grimdark` (and in `_theme-template.css`), so the focus ring no longer matches the accent in those two themes. It is a separate token with its own contract and was not in scope; re-syncing it is a design call. Likewise: accent-as-ink and success-as-ink still fail on `SURFACE-3` (4.10–4.26:1 and ~4.33:1), and the React package's `--C-CHART-1` / `--C-CHART-2` hard-code the old default accent and success values and will not track this change.
+
+  **This changes rendered output for every consumer** of `bg-accent` / `text-accent` / `--C-ACCENT`, `--C-TEXT-ON-ACCENT`, `border-border-strong` / `--C-BORDER-STRONG`, and `text-status-success` / `bg-status-success` / `--C-STATUS-SUCCESS`, on `default`, `events` and `grimdark` (`tech` changes only its border). **Revert:** restore the "Before" values above in [src/tokens/colors.css](./src/tokens/colors.css), [src/themes/events.css](./src/themes/events.css), [src/themes/grimdark.css](./src/themes/grimdark.css) and [src/themes/tech.css](./src/themes/tech.css).
 
 - **`--C-TEXT-MUTED` now meets WCAG AA on every surface it is actually painted on, in all four themes.** It previously failed AA *and* AA-large everywhere — the best any theme managed was **2.59:1** against `--C-SURFACE-0`, and the worst was 2.06:1. Muted text is not decorative here: it is the placeholder in every text control, the outside-month day in `Calendar`, the tag-remove affordance in `MultiSelect`, and the secondary line in `FileUpload`, `StatCard`, `Breadcrumbs` and `Timeline`.
 

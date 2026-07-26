@@ -39,7 +39,7 @@
 
   /* Border — subtle with neon hint */
   --C-BORDER-DEFAULT: oklch(0.2396 0.019 284.87);
-  --C-BORDER-STRONG: oklch(0.2922 0.029 284.46);
+  --C-BORDER-STRONG: oklch(0.4968 0.029 284.46);
   --C-BORDER-FOCUS: oklch(0.8763 0.2278 152.55);
 
   /* Status — saturated, neon */

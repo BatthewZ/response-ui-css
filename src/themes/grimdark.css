@@ -20,8 +20,8 @@
   --C-PRIMARY-ACTIVE: oklch(0.285 0 0);
   --C-SECONDARY: oklch(0.3485 0 0);
   --C-SECONDARY-HOVER: oklch(0.4091 0 0);
-  --C-ACCENT: oklch(0.5054 0.1905 27.52);
-  --C-ACCENT-HOVER: oklch(0.4437 0.1613 26.9);
+  --C-ACCENT: oklch(0.6618 0.1905 27.52);
+  --C-ACCENT-HOVER: oklch(0.6001 0.1613 26.9);
 
   /* Surface — charcoal and ash */
   --C-SURFACE-0: oklch(0.1684 0 0);
@@ -35,11 +35,11 @@
   --C-TEXT-MUTED: oklch(0.6186 0.0252 85.94);
   --C-TEXT-INVERSE: oklch(0.1684 0 0);
   --C-TEXT-ON-PRIMARY: oklch(0.8285 0.0414 83.1);
-  --C-TEXT-ON-ACCENT: oklch(0.8285 0.0414 83.1);
+  --C-TEXT-ON-ACCENT: oklch(0.1684 0.0414 83.1);
 
   /* Border — iron and rust */
   --C-BORDER-DEFAULT: oklch(0.2872 0.0121 78.1);
-  --C-BORDER-STRONG: oklch(0.364 0.0192 76.79);
+  --C-BORDER-STRONG: oklch(0.5211 0.0192 76.79);
   --C-BORDER-FOCUS: oklch(0.5054 0.1905 27.52);
 
   /* Status */
