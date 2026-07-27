@@ -4,6 +4,11 @@ A theme is a CSS rule that overrides design-system tokens under a `data-theme` s
 
 > Selector convention: `:root[data-theme="<name>"]`. The `default` theme IS `:root` itself (no override layer); switching to `default` removes the `data-theme` attribute.
 
+> `default` is the only theme name the design system has an opinion about. The
+> `events`, `grimdark` and `tech` files under `src/examples/themes/` are worked
+> examples of this contract — no entry imports them, no code depends on them, and
+> they sit outside semver. Your theme and theirs are the same kind of object.
+
 ---
 
 ## Core (semantic tokens)
@@ -229,12 +234,23 @@ When extending utilities (adding new colors, etc.), expose them via `@theme inli
    ```
 2. Change the selector to `:root[data-theme="aurora"]`.
 3. Customize the core tokens. Leave the rest commented out — uncomment only those you actually want to override.
-4. Import after the main package CSS:
+4. Import the font faces your theme names — at the **top of your app's CSS entry**, above
+   the foundation import. The main entry loads only the two families the `default` theme
+   uses, so anything else is yours to bring:
+   ```css
+   @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+   ```
+   **Not inside the theme file.** CSS requires every `@import` to precede all other rules in
+   the flattened stylesheet, and your theme file is imported *after* the foundation — so an
+   `@import` there lands mid-bundle and is dropped without error. The symptom is a correct
+   palette in the wrong typeface. Each example theme keeps its fonts in a separate
+   `<name>-fonts.css` for exactly this reason.
+5. Import after the main package CSS:
    ```css
    @import "@batthewz/response-ui-css";
    @import "./themes/aurora.css";
    ```
-5. Activate it by setting `data-theme` on `<html>`:
+6. Activate it by setting `data-theme` on `<html>`:
    ```html
    <html data-theme="aurora">
      <!-- etc -->

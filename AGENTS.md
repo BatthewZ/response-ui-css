@@ -117,7 +117,7 @@ Non-utility helper classes (apply directly, no Tailwind utility):
 - `.scroll-reveal-hidden` — starting opacity 0; pair with one of the `animate-*` utilities above when an IntersectionObserver flips visibility. Reduced-motion users skip the hidden state.
 - `.stagger-item` — reads `--stagger-index` (set inline per child, e.g. `style={{ "--stagger-index": i }}`) and multiplies it by `--MOTION-STAGGER-DELAY`. Pair with any `animate-*` utility.
 
-**View transitions.** [src/animations/view-transitions.css](src/animations/view-transitions.css) wires `::view-transition-old(root)` / `::view-transition-new(root)` to `--MOTION-PAGE-TRANSITION-{OUT,IN}` (default `fade` / `fade-out`). To customise per theme, set those vars to your own `@keyframes` names (see grimdark for an example).
+**View transitions.** [src/animations/view-transitions.css](src/animations/view-transitions.css) wires `::view-transition-old(root)` / `::view-transition-new(root)` to `--MOTION-PAGE-TRANSITION-{OUT,IN}` (default `fade` / `fade-out`). To customise per theme, set those vars to your own `@keyframes` names — [the grimdark example theme](src/examples/themes/grimdark.css) does this.
 
 ### Media / overlay
 
@@ -126,12 +126,18 @@ Bracket-syntax escape hatch for `--media-*` and `--overlay-*` tokens — e.g. `a
 ## Theme switching
 
 ```html
-<html data-theme="grimdark">
-  <!-- or "events", "tech" -->
+<html data-theme="aurora">
+  <!-- any name your own CSS defines -->
 </html>
 ```
 
 Omit `data-theme` for the default (`:root` token set, no override layer). Set the attribute however your app manages theme state — a `<script>` in `<head>`, a framework effect, whatever. No JS from this package required.
+
+`default` is the only theme name this package has any opinion about. `events`,
+`grimdark` and `tech` are worked examples under [src/examples/themes/](src/examples/themes/); nothing
+imports them and nothing depends on them. Do not treat them as a fixed set, do
+not add a fourth "official" theme, and do not write code or docs that enumerate
+them — see **Don'ts**.
 
 ## Install contract
 
@@ -139,7 +145,7 @@ Omit `data-theme` for the default (`:root` token set, no override layer). Set th
 @import "@batthewz/response-ui-css"; /* in consumer's app.css */
 ```
 
-Pulls in, in order: Google Fonts → `tailwindcss` → tokens → responsive scales → animations → built-in themes → base. No PostCSS config needed.
+Pulls in, in order: the `default` theme's fonts → `tailwindcss` → tokens → responsive scales → animations → base. No PostCSS config needed. **No theme override layer is imported** — `default` is `:root`, and every other theme (examples included) is opt-in.
 
 This package registers Tailwind sources only for its **own** files. Any separately-installed library that ships components — and the consumer's own source tree — must register its own `@source`. A sideways path into another package's folder (`@source "../../some-other-package/…"`) assumes npm's hoisted layout and silently matches nothing under isolated stores (bun, pnpm), so such a library must carry a **self-relative** `@source` in its own CSS entry; the consumer adds `@source "…"` directives for any sources outside their own tree.
 
@@ -149,9 +155,9 @@ The package also exposes these subpaths, for the narrow cases where the main ent
 
 | Subpath                                                   | When                                                                                                |
 | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `@batthewz/response-ui-css/no-fonts`                      | App self-hosts Poppins / its theme fonts                                                            |
-| `@batthewz/response-ui-css/fonts`                         | Pull only the Google Fonts import (rare)                                                            |
-| `@batthewz/response-ui-css/themes/{events,grimdark,tech}` | Cherry-pick one built-in theme without loading the others                                           |
+| `@batthewz/response-ui-css/no-fonts`                      | App self-hosts Poppins / Libertinus Mono                                                            |
+| `@batthewz/response-ui-css/fonts`                         | Pull only the `default` theme's Google Fonts import (rare)                                          |
+| `@batthewz/response-ui-css/examples/themes/<name>`        | Load a worked example (`events`, `grimdark`, `tech`) — demos and docs, not production               |
 | `@batthewz/response-ui-css/theme-template`                | Programmatic access to the template (tooling)                                                       |
 | `@batthewz/response-ui-css/tokens`                        | Tokens only, no responsive scales / animations / base (very rare; you usually want the whole entry) |
 
@@ -168,24 +174,29 @@ Default rule still applies: **use the main entry.** Subpaths exist for the liste
 | [src/tokens/](src/tokens/)                          | Default theme + `@theme inline` mappings (colors, radius, shadows, motion, transitions, media, overlay)       |
 | [src/responsive/](src/responsive/)                  | `--R-SIZE-*`, `--H*`, `--BodyText-*` + Tailwind aliases                                                       |
 | [src/animations/](src/animations/)                  | Keyframes + `.class` / `animate-*` utilities for fade, scale, morph, scroll-reveal, stagger, view-transitions |
-| [src/themes/](src/themes/)                          | Built-in `events`, `grimdark`, `tech` overrides                                                               |
+| [src/examples/](src/examples/)                      | Worked example themes. Sample code — not imported by any entry, not covered by semver, safe to delete        |
 | [src/base.css](src/base.css)                        | Root font setup, theme-aware scrollbars, `dialog[open].no-body-scroll` body-lock                              |
 
 Strictly the design-system foundation. Ships no React components, no JavaScript.
 
 ## Authoring a custom theme
 
-1. Copy [src/\_theme-template.css](src/_theme-template.css), change the `[data-theme="…"]` selector, replace the OKLCH values. Required vars at top; optional ones (radius, shadow, motion, weights) at bottom — omit to inherit from `:root`.
+This is the normal case, not an advanced one — the example themes were written this way and get no privileges yours does not.
+
+1. Copy [src/\_theme-template.css](src/_theme-template.css), change the `[data-theme="…"]` selector, replace the OKLCH values. Core coupled vars at top; optional ones (radius, shadow, motion, weights) at bottom — omit to inherit from `:root`.
 2. `@import` it in `app.css` **after** `@import "@batthewz/response-ui-css";`.
-3. Set `<html data-theme="your-theme">`.
+3. Import your own font faces at the **top of the app's CSS entry**, above the foundation import — never inside the theme file. `@import` must precede all other rules in the flattened stylesheet, and a theme file is loaded after the foundation, so an `@import` there is dropped silently (correct palette, wrong typeface). The main entry loads only the `default` theme's two families; each example theme keeps its own in a sibling `<name>-fonts.css`.
+4. Set `<html data-theme="your-theme">`.
+5. If your theme is dark, or sets two contract tokens to the same colour, and you use `@batthewz/response-ui-react-components` charts, override `--C-CHART-1..5` too. Those tokens belong to that package — its `docs/theme-contract.md` holds the rule, not this package's.
 
 If a theme overrides `--R-SIZE-*` / `--H*` / `--BodyText-*`, mirror the `@media (width >= 40rem)` block from [src/responsive/](src/responsive/) so the responsive bump survives.
 
 ## Don'ts
 
 - No `tailwind.config.js` — v4 reads everything from CSS.
-- No micro-imports — default to the main entry. Subpaths exist only for the narrow cases in the table above (self-hosted fonts, single-theme cherry-pick).
+- No micro-imports — default to the main entry. Subpaths exist only for the narrow cases in the table above (self-hosted fonts, loading a worked example).
+- No enumerating the example themes. Never write `events`/`grimdark`/`tech` into a type, a selector, a default value, a config list, or prose that implies a fixed set — outside `src/examples/` and the docs that explicitly frame them as examples. `scripts/verify-example-themes.mjs` in the react-components repo gates the equivalent rule there; the same rule applies here by convention.
 - No Tailwind defaults (`p-4`, `text-sm`, `bg-blue-500`, `rounded`) — use tokens (`p-r3`, `text-body-2`, `bg-accent`, `rounded-md`).
 - No unprefixed `text-primary` for foreground colour — collides with the type-scale utility under `tailwind-merge`. Use `text-fg-primary`.
-- No partial themes — all required colour / font / `color-scheme` variables must be present.
+- No incoherent partial themes. Mechanically a `[data-theme]` block only _overrides_, so any token you omit inherits `:root` and nothing is strictly required (see [docs/theme-contract.md](docs/theme-contract.md)). But the core set — `color-scheme`, canvas, surfaces, and the `--C-TEXT-*` ink that must contrast them — is **coupled**, and moving one without the others produces a provably broken theme (a dark canvas with default dark ink). Ship the core set together; radii, shadows, motion and weights are genuinely optional.
 - No fill token (`--C-PRIMARY` / `--C-ACCENT` / status `bg-*`) as ink on a surface — it's only guaranteed to contrast its own `on-*` text, not the surface. Use a `--C-TEXT-*` token for ink/lines/borders, and outline filled chips in their `on-*` token. See **Contrast contract** above.

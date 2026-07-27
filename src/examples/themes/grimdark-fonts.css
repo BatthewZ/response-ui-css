@@ -1,0 +1,21 @@
+/* EXAMPLE THEME FONTS — Grimdark: Cinzel (headings), Source Serif 4 (body), IBM Plex Mono (mono).
+
+   These used to live in the package's single src/fonts.css, which the main entry
+   loaded for everyone — so every consumer downloaded nine faces belonging to themes
+   they were not using. They are here so you pay only for the theme you pick.
+
+   They are NOT inside grimdark.css, because that would not work: CSS requires every
+   @import to precede all other rules in the FLATTENED stylesheet, and a theme file is
+   imported after the foundation — so an @import there lands mid-bundle and is dropped
+   silently. The palette applies, the typeface never changes, nothing errors.
+   Import this FIRST, above everything:
+
+       @import "@batthewz/response-ui-css/examples/themes/grimdark-fonts";
+       @import "@batthewz/response-ui-css";
+       @import "@batthewz/response-ui-css/examples/themes/grimdark";
+
+   Your own theme has the same constraint. See docs/theme-contract.md. */
+
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;0,8..60,800;1,8..60,300;1,8..60,400;1,8..60,500;1,8..60,600;1,8..60,700;1,8..60,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");

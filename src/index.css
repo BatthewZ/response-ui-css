@@ -1,7 +1,15 @@
 /* @batthewz/response-ui-css — public entry.
-   Imports Tailwind v4 + Google Fonts + all design tokens, themes, responsive
-   scales, animations, and base styles. Consumers do
+   Imports Tailwind v4 + the default theme's fonts + all design tokens,
+   responsive scales, animations, and base styles. Consumers do
    `@import "@batthewz/response-ui-css";` in their own app.css.
+
+   No theme is imported here beyond the default one, which IS `:root`. The
+   example themes (events, grimdark, tech) demonstrate the theme contract; they
+   are not part of this entry, because importing them would make every consumer
+   pay for three palettes and nine font families they did not ask for. Opt in
+   with the `examples/themes/<name>-fonts` and `examples/themes/<name>` pair (fonts
+   first — see fonts.css), or copy
+   `src/_theme-template.css` and write your own. See docs/theme-contract.md.
 
    Per-component CSS (Accordion, Button, etc.) lives in
    `@batthewz/response-ui-react-components` alongside each React component
@@ -12,5 +20,4 @@
 @import "./tokens/index.css";
 @import "./responsive/index.css";
 @import "./animations/index.css";
-@import "./themes/index.css";
 @import "./base.css";

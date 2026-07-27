@@ -4,7 +4,83 @@ All notable changes to `@batthewz/response-ui-css` will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Until 1.0.0, breaking changes will bump the **minor** version.
 
-## [Unreleased]
+## [0.11.0] — unreleased
+
+`package.json` is at `0.11.0`; the published version is `0.10.1`. Everything below is what
+0.11.0 will carry when it is cut, including the focus-ring fix that had been sitting under
+`[Unreleased]`. The date goes in when it ships.
+
+### Breaking
+
+- **The example themes are no longer imported by the public entries, and moved to `src/examples/themes/`.**
+  `events`, `grimdark` and `tech` were never part of the design language — they are worked
+  demonstrations of the theme contract. Shipping them inside `src/index.css` made that untrue in three
+  measurable ways: every consumer downloaded three palettes they had not asked for, every consumer
+  loaded **nine Google Font families** for themes they were not using, and a consumer's own theme was
+  visibly a second-class citizen next to three that came pre-installed. `default` is, and always was,
+  the only theme this package defines — it *is* `:root`.
+
+  **What breaks.** (1) `@import "@batthewz/response-ui-css"` no longer defines
+  `[data-theme="events"|"grimdark"|"tech"]`; an app relying on one now renders unthemed until it opts
+  in. (2) The subpaths `./themes/events`, `./themes/grimdark` and `./themes/tech` are **removed**,
+  replaced by `./examples/themes/<name>`. (3) `./fonts` and the main entry now load only the two
+  families the `default` theme names (Poppins, Libertinus Mono); each example theme's nine faces
+  moved to a sibling `./examples/themes/<name>-fonts` you import separately — see the next entry
+  for why they are not inside the theme files.
+
+  **Migration** — one line per theme you actually use:
+
+  ```css
+  @import "@batthewz/response-ui-css/examples/themes/grimdark-fonts"; /* MUST be first */
+  @import "@batthewz/response-ui-css";
+  @import "@batthewz/response-ui-css/examples/themes/grimdark";      /* was implicit */
+  ```
+
+  The fonts line is not optional and its position is not stylistic — see the next entry.
+
+  If you use `@batthewz/response-ui-react-components` charts or `MediaCard` with those themes, also
+  add `@import "@batthewz/response-ui-react-components/examples/theme-tuning";` — their `--C-CHART-*`
+  ramps moved to an opt-in stylesheet there for the same reason.
+
+  Anything under `src/examples/` is **sample code and outside semver.** It may change or be replaced
+  without a breaking-change note. That is the point of it.
+
+  > **Reading older entries below:** they refer to `src/themes/<name>.css`, which is now
+  > `src/examples/themes/<name>.css`. Their file links (including the "Revert:" instructions) are
+  > left as written, because they record what was true at the time — translate the path.
+
+- **Each example theme's fonts moved out of `src/fonts.css` into a sibling `<name>-fonts.css`, which
+  must be imported first.** `fonts.css` previously carried all eleven families — two for `default` and
+  nine for the three examples — and the main entry loaded the lot, so every consumer paid for nine
+  faces belonging to themes they were not using. It now carries only the `default` theme's two.
+
+  The obvious alternative — putting each theme's `@import url(...)` at the top of its own theme file —
+  looks correct and silently does not work, so it is worth stating: CSS requires every `@import` to
+  precede all other rules in the *flattened* stylesheet, and a theme file is imported after the
+  foundation, so bundlers drop it. The palette applies, the typeface never changes, and nothing errors.
+  The same constraint applies to your own theme; put font imports at the top of your app's CSS entry.
+
+  ```css
+  @import "@batthewz/response-ui-css/examples/themes/grimdark-fonts"; /* first */
+  @import "@batthewz/response-ui-css";
+  @import "@batthewz/response-ui-css/examples/themes/grimdark";
+  ```
+
+### Changed
+
+- **The theme docs lead with authoring, not with the examples.** The README's `## Themes` section
+  previously contained only a `setAttribute("data-theme", "grimdark")` snippet, while "Define your own
+  theme" sat mis-indented *inside* the "Four built-in themes" bullet list — so the demos read as the
+  feature and authoring read as a footnote. Reversed.
+- **The partial-theme rule no longer contradicts itself.** `AGENTS.md` said "No partial themes — all
+  required colour / font / `color-scheme` variables must be present", while `docs/theme-contract.md`
+  and `src/_theme-template.css` both said "Nothing is strictly required". Both were half right and a
+  reader got opposite answers depending on which file they opened. Now stated once: mechanically a
+  `[data-theme]` block only *overrides*, so nothing is required — but the core set (`color-scheme`,
+  canvas, surfaces, and the `--C-TEXT-*` ink that must contrast them) is **coupled**, and moving one
+  without the others produces a provably broken theme.
+- `docs/theme-contract.md` gained a font-import step in the authoring workflow, and a note that
+  `default` is the only theme name the design system has an opinion about.
 
 ### Fixed
 

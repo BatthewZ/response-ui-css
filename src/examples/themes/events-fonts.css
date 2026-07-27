@@ -1,0 +1,21 @@
+/* EXAMPLE THEME FONTS — Events: Playfair Display (headings), Nunito (body), Fira Code (mono).
+
+   These used to live in the package's single src/fonts.css, which the main entry
+   loaded for everyone — so every consumer downloaded nine faces belonging to themes
+   they were not using. They are here so you pay only for the theme you pick.
+
+   They are NOT inside events.css, because that would not work: CSS requires every
+   @import to precede all other rules in the FLATTENED stylesheet, and a theme file is
+   imported after the foundation — so an @import there lands mid-bundle and is dropped
+   silently. The palette applies, the typeface never changes, nothing errors.
+   Import this FIRST, above everything:
+
+       @import "@batthewz/response-ui-css/examples/themes/events-fonts";
+       @import "@batthewz/response-ui-css";
+       @import "@batthewz/response-ui-css/examples/themes/events";
+
+   Your own theme has the same constraint. See docs/theme-contract.md. */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");

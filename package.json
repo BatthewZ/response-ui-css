@@ -1,8 +1,8 @@
 {
   "name": "@batthewz/response-ui-css",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "type": "module",
-  "description": "Design tokens, themes, responsive scales, and animations for the response-ui design system. Tailwind v4 CSS-first. The foundation layer; pairs with @batthewz/response-ui-react-components.",
+  "description": "Design tokens, a theme contract, responsive scales, and animations for the response-ui design system. Tailwind v4 CSS-first. The foundation layer; pairs with @batthewz/response-ui-react-components.",
   "sideEffects": [
     "*.css"
   ],
@@ -38,17 +38,9 @@
       "style": "./src/tokens/index.css",
       "default": "./src/tokens/index.css"
     },
-    "./themes/events": {
-      "style": "./src/themes/events.css",
-      "default": "./src/themes/events.css"
-    },
-    "./themes/grimdark": {
-      "style": "./src/themes/grimdark.css",
-      "default": "./src/themes/grimdark.css"
-    },
-    "./themes/tech": {
-      "style": "./src/themes/tech.css",
-      "default": "./src/themes/tech.css"
+    "./examples/themes/*": {
+      "style": "./src/examples/themes/*.css",
+      "default": "./src/examples/themes/*.css"
     },
     "./theme-template": {
       "style": "./src/_theme-template.css",

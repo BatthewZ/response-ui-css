@@ -91,7 +91,7 @@ If a token should change per theme, override the raw value under each theme sele
 `@theme inline` mapping does not need repeating:
 
 ```css
-:root[data-theme="grimdark"] {
+:root[data-theme="aurora"] {
   --C-BRAND: oklch(0.7 0.16 250); /* lighter so it reads on dark surfaces */
 }
 ```

@@ -1,5 +1,19 @@
-/* Grimdark Theme — Gothic, oppressive, heavy
-   Fonts: Cinzel (headings), Source Serif 4 (body), IBM Plex Mono (mono) */
+/* EXAMPLE THEME — Grimdark: gothic, oppressive, heavy.
+   Fonts: Cinzel (headings), Source Serif 4 (body), IBM Plex Mono (mono).
+
+   This is a worked example of the theme contract, not part of the design
+   system's API. It is not imported by `@batthewz/response-ui-css`; opt in with
+   `@import "@batthewz/response-ui-css/examples/themes/grimdark";` or, far more
+   likely, copy `src/_theme-template.css` and write your own.
+
+   Its fonts live in grimdark-fonts.css and must be imported FIRST, above every
+   other rule — CSS requires that of @import, and this file is loaded too late
+   to carry them itself.
+
+   Read it to see what a complete dark theme looks like. Note what is NOT here:
+   `--C-CHART-*` is owned by `@batthewz/response-ui-react-components`, so this
+   theme's chart ramp lives in that package's `examples/theme-tuning` stylesheet.
+   A dark theme needs one — see that package's docs/theme-contract.md. */
 
 :root[data-theme="grimdark"] {
   color-scheme: dark;

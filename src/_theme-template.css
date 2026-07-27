@@ -9,20 +9,32 @@
    fonts); these are coupled, so set them together for a coherent result — e.g.
    a dark `color-scheme`/canvas with a light default text color reads as broken.
    Optional static tokens (radii, shadows, motion) follow, and the responsive
-   type scale, spacing & weights have their own section at the bottom. See the
-   existing themes for full examples:
-       node_modules/@batthewz/response-ui-css/src/themes/grimdark.css
-       node_modules/@batthewz/response-ui-css/src/themes/events.css
-       node_modules/@batthewz/response-ui-css/src/themes/tech.css                 */
+   type scale, spacing & weights have their own section at the bottom.
+
+   Three worked examples ship alongside this template. They are demonstrations of
+   this contract with no standing in the API — read them, copy from them, ignore
+   them; nothing in the design system depends on them existing:
+       node_modules/@batthewz/response-ui-css/src/examples/themes/grimdark.css
+       node_modules/@batthewz/response-ui-css/src/examples/themes/events.css
+       node_modules/@batthewz/response-ui-css/src/examples/themes/tech.css        */
 
 :root[data-theme="my-theme"] {
   /* Light or dark UI — drives form-control colors, scrollbar, etc. */
   color-scheme: light; /* or "dark" */
 
-  /* ─── Fonts ─────────────────────────────────────────────────────────────── */
-  --DEFAULT-FONT: "Inter", sans-serif;
-  --DEFAULT-MONO-FONT: "JetBrains Mono", monospace;
-  --HEADING-FONT: "Inter", sans-serif;
+  /* ─── Fonts ─────────────────────────────────────────────────────────────────
+     These default to the two families the package actually loads. Name anything
+     else and you MUST load it yourself — put the @import at the very top of your
+     app's CSS entry, above `@import "@batthewz/response-ui-css";`:
+
+         @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+     Not at the top of THIS file: CSS requires @import to precede all other rules
+     in the flattened stylesheet, and this file is imported after the foundation,
+     so it would be dropped silently — right palette, wrong typeface, no error. */
+  --DEFAULT-FONT: "Poppins", sans-serif;
+  --DEFAULT-MONO-FONT: "Libertinus Mono", monospace;
+  --HEADING-FONT: "Poppins", sans-serif;
   --HEADING-LETTER-SPACING: normal;
   --HEADING-TEXT-TRANSFORM: none;
 

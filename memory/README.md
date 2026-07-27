@@ -6,3 +6,4 @@ paths or line numbers, nothing that goes stale when the code moves.
 | Note | What it covers |
 | --- | --- |
 | [contrast-retuning.md](./contrast-retuning.md) | How to change a `--C-*` token for WCAG contrast: lightness-only moves, which surfaces a token must clear, the accent / on-accent conflict, duplicated colour literals, sRGB gamut mapping, and what a finished report looks like. |
+| [example-themes.md](./example-themes.md) | Why `default` is the only theme this package defines, why the public entry imports no theme, and the shape by which example themes quietly become load-bearing. Read before adding anything theme-shaped to an entry file. |

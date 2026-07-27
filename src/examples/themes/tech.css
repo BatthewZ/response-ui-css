@@ -1,5 +1,25 @@
-/* Tech Theme — Terminal, precise, futuristic
-   Fonts: Space Grotesk (headings), Inter (body), JetBrains Mono (mono) */
+/* EXAMPLE THEME — Tech: terminal, precise, futuristic.
+   Fonts: Space Grotesk (headings), Inter (body), JetBrains Mono (mono).
+
+   This is a worked example of the theme contract, not part of the design
+   system's API. It is not imported by `@batthewz/response-ui-css`; opt in with
+   `@import "@batthewz/response-ui-css/examples/themes/tech";` or, far more
+   likely, copy `src/_theme-template.css` and write your own.
+
+   Its fonts live in tech-fonts.css and must be imported FIRST, above every
+   other rule — CSS requires that of @import, and this file is loaded too late
+   to carry them itself.
+
+   `--C-CHART-*` is owned by `@batthewz/response-ui-react-components`, so this
+   theme's chart ramp lives in that package's `examples/theme-tuning` stylesheet,
+   not here.
+
+   Read this one for the awkward case: it sets `--C-ACCENT` and
+   `--C-STATUS-SUCCESS` to the same neon green, which collapses two chart series
+   into one colour unless the theme also overrides `--C-CHART-*`. Any theme that
+   reuses a colour across two contract tokens inherits that problem. `--C-CHART-*`
+   belongs to @batthewz/response-ui-react-components; the rule lives in that
+   package's docs/theme-contract.md. */
 
 :root[data-theme="tech"] {
   color-scheme: dark;

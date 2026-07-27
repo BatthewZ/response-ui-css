@@ -1,5 +1,16 @@
-/* Events Theme — Warm, editorial, celebratory
-   Fonts: Playfair Display (headings), Nunito (body), Fira Code (mono) */
+/* EXAMPLE THEME — Events: warm, editorial, celebratory.
+   Fonts: Playfair Display (headings), Nunito (body), Fira Code (mono).
+
+   This is a worked example of the theme contract, not part of the design
+   system's API. It is not imported by `@batthewz/response-ui-css`; opt in with
+   `@import "@batthewz/response-ui-css/examples/themes/events";` or, far more
+   likely, copy `src/_theme-template.css` and write your own.
+
+   Its fonts live in events-fonts.css and must be imported FIRST, above every
+   other rule — CSS requires that of @import, and this file is loaded too late
+   to carry them itself.
+
+   Read it to see what a complete light theme looks like. */
 
 :root[data-theme="events"] {
   /* Fonts — elegant serif headings with a warm, rounded body */

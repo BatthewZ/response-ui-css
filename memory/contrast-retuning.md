@@ -64,6 +64,12 @@ they are their own pairing and they move when the accent moves.
 
 ## Report shape
 
-A retune is only finished when there is a before/after ratio table covering **all four themes**,
-every pairing being fixed, and every currently-passing pairing that involves a moved token.
-Repairing four pairings while quietly breaking a fifth is a net loss.
+A retune is only finished when there is a before/after ratio table covering **the `default` theme
+and every worked example**, every pairing being fixed, and every currently-passing pairing that
+involves a moved token. Repairing four pairings while quietly breaking a fifth is a net loss.
+
+The examples are in that table as a **regression corpus** — they are the only concrete themes
+available to measure — not because they are a supported set. `default` is the only theme this
+package defines. A green table across them proves nothing about a consumer's theme, so the rule
+that produced the fix belongs in `docs/theme-contract.md` where a theme author will read it; the
+table is evidence, not the contract. See [example-themes.md](./example-themes.md).
