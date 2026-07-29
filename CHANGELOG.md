@@ -4,6 +4,82 @@ All notable changes to `@batthewz/response-ui-css` will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Until 1.0.0, breaking changes will bump the **minor** version.
 
+## [0.13.0] — 2026-07-29
+
+### Breaking
+
+- **The surface ramp now runs raised → recessed, in the same lightness direction in every theme,
+  and `--C-CANVAS` has moved off the end of the scale into the middle of it.**
+
+  The old rule was "separation from `--C-CANVAS`, ascending", with the lightness direction left to
+  the theme author: light themes ran white → grey, dark themes ran dark → light. It was internally
+  consistent and it produced the wrong picture, for two compounding reasons.
+
+  First, **the canvas sat at an endpoint and collided with rung 0.** In both shipped light themes
+  `--C-CANVAS` and `--C-SURFACE-0` were byte-identical, so anything painted on rung 0 had no
+  boundary against the page at all. That had already been "fixed" once by moving `Card` and
+  `StatCard` down to rung 1 — which treats the symptom, darkens the component, and leaves the
+  collision in place for every other rung-0 consumer.
+
+  Second, **the per-theme direction meant surfaces sank in light themes and lifted in dark ones.**
+  The same token produced a card that read as a raised tile in `grimdark` and as a grey hole in
+  `default`. Raised regions catch the light in both modes; the direction should never have been
+  optional.
+
+  The scale is now:
+
+  ```
+    SURFACE-0   ┐ raised above the page — cards, dialogs, popovers, menus, sidebars, input fills
+    SURFACE-1   ┘ secondary raised — panels nested in a sheet, table header rows
+    ·············  --C-CANVAS  ·············
+    SURFACE-2   ┐ recessed — hover washes, chips, badges, wells nested in a sheet
+    SURFACE-3   ┘ deepest — progress and slider tracks, disabled fills
+  ```
+
+  Rung 0 is the lightest of the four in **every** theme, rung 3 the darkest, dark themes included.
+  The invariant is now: do not reorder the rungs, and do not let the canvas collide with one.
+  Spacing remains yours.
+
+  **What breaks.** (1) A theme whose `--C-CANVAS` sits at pure white or pure black no longer has
+  room for the recessed rungs, and any component painting rung 0 has no boundary against its page —
+  move the canvas between rungs 1 and 2. (2) A **dark** theme authored against the old rule has its
+  ramp inverted relative to the new one and must be re-spaced. (3) Components that painted rung 1 as
+  a card now want rung 0.
+
+  **Migrating a dark theme — re-space, do not reverse.** Reversing the four existing values promotes
+  the old most-recessed value into rung 0, which is the rung cards and dialogs paint and therefore the
+  most text-bearing surface in the system. Measured, that is a straight WCAG AA failure: it put
+  `grimdark`'s secondary ink at 4.45:1 and its muted ink at 3.92:1, and `tech`'s muted ink at 4.06:1.
+  Instead anchor the new rung 0 at a lightness the theme's ink was already validated against, and open
+  the new room *below* the canvas. Both shipped dark examples were retuned exactly that way and all
+  ink now clears 4.5:1 on rungs 0–2.
+
+- **`--C-CANVAS` changed value in the `default` theme**, from `oklch(1 0 0)` to
+  `oklch(0.9758 0.0023 264.54)`. The four `--C-SURFACE-*` values are **unchanged** — light themes
+  already ran the new direction, so only the canvas had to move. A page therefore goes from white to a
+  light grey, and cards go from grey to white: the canvas-to-rung-0 lift is 1.07:1, slightly more
+  separation than the 1.05:1 cards had against the page before, and now in the direction that makes
+  the card the lit surface rather than the hole.
+
+### Changed
+
+- The `default` theme's ring-offset default still points at `--C-SURFACE-0`, which is now a
+  deliberate choice rather than a free one: focusable controls overwhelmingly sit on a rung-0 sheet.
+  A control placed directly on the page canvas wants an explicit `ring-offset-canvas`.
+- `docs/theme-contract.md`, `docs/extending.md`, `AGENTS.md` and `src/_theme-template.css` rewritten
+  around the new model. The measured adjacent-rung range is stated honestly as 1.02–1.15:1 (the old
+  text said 1.02–1.07:1, which had omitted the 2↔3 step).
+
+### Examples
+
+- `events` — `--C-CANVAS` moved between rungs 1 and 2; surfaces unchanged.
+- `grimdark`, `tech` — canvas lifted off `oklch(0 0 0)` and the ramps re-spaced so the recessed rungs
+  have room below the page floor. Pure black is no longer a viable canvas under the new model, which
+  is the point these two now demonstrate.
+
+> **Note.** `0.12.0` was published but never documented here. This entry does not attempt to
+> reconstruct it; the gap is pre-existing.
+
 ## [0.11.0] — 2026-07-28
 
 `package.json` is at `0.11.0`; the published version is `0.10.1`. Everything below is what

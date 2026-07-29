@@ -39,7 +39,10 @@
   --HEADING-TEXT-TRANSFORM: none;
 
   /* ─── Canvas (page background) ──────────────────────────────────────────── */
-  --C-CANVAS: oklch(0.99 0 0);
+  /* The page floor. It belongs BETWEEN --C-SURFACE-1 and --C-SURFACE-2 — see the
+     surfaces block below. Pin it at pure white or pure black and the recessed
+     rungs have nowhere to go. */
+  --C-CANVAS: oklch(0.97 0 0);
 
   /* ─── Brand ─────────────────────────────────────────────────────────────── */
   --C-PRIMARY: oklch(0.3 0.04 260);
@@ -51,12 +54,26 @@
   --C-ACCENT-HOVER: oklch(0.5 0.22 263);
 
   /* ─── Surfaces (cards, sidebars, popovers) ──────────────────────────────── */
-  /* 0 → 3 is separation from --C-CANVAS, ascending — not elevation. A light
-     theme runs light → dark here; a dark theme runs dark → light. Elevation is
-     --SHADOW-* and --C-BORDER-DEFAULT, which read the same way in both. */
+  /* 0 → 3 runs RAISED → RECESSED, and always in the same lightness direction:
+     0 is the lightest of the four in every theme, 3 the darkest — in a dark
+     theme too. Raised regions catch the light in both modes.
+
+         SURFACE-0   ┐ raised above the page
+         SURFACE-1   ┘
+         · · · · · · · · --C-CANVAS goes here · · · · · · · ·
+         SURFACE-2   ┐ recessed into the page
+         SURFACE-3   ┘
+
+     Keep --C-CANVAS between rungs 1 and 2 and both halves stay usable. Order
+     matters more than spacing: you may spread the rungs, but do not reorder
+     them, and do not let the canvas collide with a rung.
+
+     A rung is still not an elevation — two things on the same rung are meant to
+     look alike. Separate them with --SHADOW-* or --C-BORDER-DEFAULT, never by
+     borrowing a neighbouring rung. */
   --C-SURFACE-0: oklch(1 0 0);
-  --C-SURFACE-1: oklch(0.98 0 0);
-  --C-SURFACE-2: oklch(0.96 0 0);
+  --C-SURFACE-1: oklch(0.985 0 0);
+  --C-SURFACE-2: oklch(0.955 0 0);
   --C-SURFACE-3: oklch(0.93 0 0);
 
   /* ─── Text ──────────────────────────────────────────────────────────────── */

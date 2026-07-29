@@ -37,7 +37,7 @@ responsive bump automatically:
 
 ```css
 .my-card {
-  background: var(--C-SURFACE-1);
+  background: var(--C-SURFACE-0);
   color: var(--C-TEXT-PRIMARY);
   padding: var(--R-SIZE-3);
   border: 1px solid var(--C-BORDER-DEFAULT);
@@ -46,7 +46,7 @@ responsive bump automatically:
 }
 ```
 
-**In markup**, use the generated Tailwind utilities (`bg-surface-1`, `text-fg-primary`,
+**In markup**, use the generated Tailwind utilities (`bg-surface-0`, `text-fg-primary`,
 `p-r3`, `text-h2`, `rounded-md`, …). The full utility list is in the
 [README](../README.md).
 

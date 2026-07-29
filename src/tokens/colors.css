@@ -1,6 +1,7 @@
 :root {
-  /* Canvas — the base layer beneath all surfaces */
-  --C-CANVAS: oklch(1 0 0);
+  /* Canvas — the page floor. It sits BETWEEN --C-SURFACE-1 and --C-SURFACE-2, so
+     rungs 0–1 are raised above the page and rungs 2–3 are recessed into it. */
+  --C-CANVAS: oklch(0.9758 0.0023 264.54);
 
   /* Brand */
   --C-PRIMARY: oklch(0.2795 0.0368 260.03);
@@ -11,7 +12,8 @@
   --C-ACCENT: oklch(0.5461 0.2152 262.88);
   --C-ACCENT-HOVER: oklch(0.4882 0.2172 264.38);
 
-  /* Surface */
+  /* Surface — 0 is the most raised, 3 the most recessed, in every theme.
+     0–1 sit above --C-CANVAS; 2–3 sit below it. */
   --C-SURFACE-0: oklch(1 0 0);
   --C-SURFACE-1: oklch(0.9846 0.0017 247.84);
   --C-SURFACE-2: oklch(0.967 0.0029 264.54);

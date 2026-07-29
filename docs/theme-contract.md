@@ -40,18 +40,32 @@ All colors are OKLCH. Use OKLCH in your custom theme.
 
 ### Surfaces (layered backgrounds)
 
-The scale is **separation from `--C-CANVAS`, ascending**: `0` sits closest to the page background, `3` furthest from it. That is the whole invariant, and it is the one to author against — the _lightness_ direction is yours. A light theme runs white → light gray; a dark theme runs dark → slightly lighter. So `--C-SURFACE-0` is the lightest of the four in a light theme and the darkest in a dark one, and both are correct.
+The scale runs **raised → recessed**, and it runs the **same lightness direction in every theme**: `--C-SURFACE-0` is the lightest of the four in a light theme _and_ in a dark one, `--C-SURFACE-3` the darkest in both. Raised regions catch the light either way — that is why the direction does not flip.
 
-| Variable        | Use                                                                                         |
-| --------------- | ------------------------------------------------------------------------------------------- |
-| `--C-SURFACE-0` | Closest to the canvas. Floating panels — dialogs, popovers, menus — and resting input fills |
-| `--C-SURFACE-1` | One step off. Cards, navbar, sidebar                                                        |
-| `--C-SURFACE-2` | Two steps. Containers nested inside those; hover washes                                     |
-| `--C-SURFACE-3` | Furthest from the canvas. The most recessed regions — tracks, wells, disabled fills         |
+`--C-CANVAS` is not the end of the scale. It is the page floor, and it belongs **between rungs 1 and 2**:
 
-**A surface number is not an elevation.** A dialog is not "above" a card because its number is lower — in a dark theme its fill is _darker_ than the card's. Elevation is carried by `--SHADOW-*` and `--C-BORDER-DEFAULT`, which point the same way in every theme; the surface number only says how far a region is nested from the page. Two things on the same rung are meant to look alike, so separate them with a border or a shadow, never by borrowing a neighbouring rung.
+```
+  SURFACE-0   ┐ raised above the page
+  SURFACE-1   ┘
+  ·············  --C-CANVAS  ·············
+  SURFACE-2   ┐ recessed into the page
+  SURFACE-3   ┘
+```
 
-Plan for adjacent rungs being a **weak** cue either way: one step measures 1.02–1.07:1 across the four measured themes. You can spread the numbers further apart in your own theme, but nothing should depend on a single step being visible.
+| Variable        | Use                                                                              |
+| --------------- | -------------------------------------------------------------------------------- |
+| `--C-SURFACE-0` | The raised sheet — cards, dialogs, popovers, menus, sidebars, resting input fills |
+| `--C-SURFACE-1` | Still raised, one step less. Panels nested inside a sheet; table header rows      |
+| `--C-SURFACE-2` | Mildly recessed. Hover washes, chips, badges, wells nested inside a sheet         |
+| `--C-SURFACE-3` | The deepest wells — progress and slider tracks, disabled fills                    |
+
+That is the whole invariant: **do not reorder the rungs, and do not let the canvas collide with one.** Spacing is yours — you may spread the rungs further apart than the shipped values.
+
+**A rung is still not an elevation.** A dialog is not "above" a card because both are on rung 0 — they are supposed to look alike. Elevation is carried by `--SHADOW-*` and `--C-BORDER-DEFAULT`; separate two things on the same rung with one of those, never by borrowing a neighbouring rung.
+
+Plan for adjacent rungs being a **weak** cue: one step measures 1.02–1.15:1 across the four measured themes, and the canvas-to-rung-0 lift — the "white card on a grey page" step — is 1.05–1.16:1. Nothing should depend on a single step being visible on its own.
+
+**Do not pin the canvas at pure white or pure black.** It reads as a tempting extreme, but it leaves the recessed rungs nowhere to go, and any component that paints rung 0 then has no boundary against the page at all. Both shipped dark examples used to sit at `oklch(0 0 0)` and were retuned for exactly this reason.
 
 ### Text
 

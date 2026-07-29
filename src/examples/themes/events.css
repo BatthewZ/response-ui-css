@@ -20,8 +20,8 @@
   --HEADING-LETTER-SPACING: -0.02em;
   --HEADING-TEXT-TRANSFORM: none;
 
-  /* Canvas */
-  --C-CANVAS: oklch(0.9895 0.009 78.28);
+  /* Canvas — between SURFACE-1 and SURFACE-2 */
+  --C-CANVAS: oklch(0.9718 0.0212 75);
 
   /* Brand */
   --C-PRIMARY: oklch(0.5413 0.2466 293.01);

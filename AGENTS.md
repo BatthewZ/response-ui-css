@@ -20,7 +20,7 @@ A pure-CSS design system. Tailwind v4, CSS-first (no `tailwind.config.js`). Toke
 
 ```css
 .thing {
-  background: var(--C-SURFACE-1);
+  background: var(--C-SURFACE-0);
   color: var(--C-TEXT-PRIMARY);
   padding: var(--R-SIZE-3);
   border: 1px solid var(--C-BORDER-DEFAULT);
@@ -52,7 +52,7 @@ border-border-default  border-border-strong  border-border-focus
 ring-border-default    ring-border-focus
 ```
 
-The colour palette is also addressable as unprefixed `bg-*` / `border-*` / `ring-*` / `text-*` (e.g. `border-primary`, `ring-accent`). **For foreground colour always use `text-fg-*`** — unprefixed `text-primary` collides with the typography scale under `tailwind-merge`. There's no `on-secondary` / `on-surface-*` / `on-status-bg` by design — those backgrounds are near-canvas by contract, so `text-fg-primary` reads on them.
+The colour palette is also addressable as unprefixed `bg-*` / `border-*` / `ring-*` / `text-*` (e.g. `border-primary`, `ring-accent`). **For foreground colour always use `text-fg-*`** — unprefixed `text-primary` collides with the typography scale under `tailwind-merge`. There's no `on-secondary` / `on-surface-*` / `on-status-bg` by design — those backgrounds all sit within a rung or two of the canvas by contract, so `text-fg-primary` reads on them.
 
 ### Contrast contract
 

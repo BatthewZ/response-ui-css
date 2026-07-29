@@ -25,8 +25,9 @@
   --HEADING-LETTER-SPACING: 0.06em;
   --HEADING-TEXT-TRANSFORM: uppercase;
 
-  /* Canvas */
-  --C-CANVAS: oklch(0 0 0);
+  /* Canvas — between SURFACE-1 and SURFACE-2. Not pure black: the recessed
+     rungs need room beneath the page floor. */
+  --C-CANVAS: oklch(0.1684 0 0);
 
   /* Brand */
   --C-PRIMARY: oklch(0.2178 0 0);
@@ -37,11 +38,11 @@
   --C-ACCENT: oklch(0.6618 0.1905 27.52);
   --C-ACCENT-HOVER: oklch(0.6001 0.1613 26.9);
 
-  /* Surface — charcoal and ash */
-  --C-SURFACE-0: oklch(0.1684 0 0);
+  /* Surface — charcoal and ash, raised (0–1) down to sunken (2–3) */
+  --C-SURFACE-0: oklch(0.2393 0 0);
   --C-SURFACE-1: oklch(0.2046 0 0);
-  --C-SURFACE-2: oklch(0.2393 0 0);
-  --C-SURFACE-3: oklch(0.285 0 0);
+  --C-SURFACE-2: oklch(0.1372 0 0);
+  --C-SURFACE-3: oklch(0.0964 0 0);
 
   /* Text — parchment on dark */
   --C-TEXT-PRIMARY: oklch(0.8285 0.0414 83.1);
