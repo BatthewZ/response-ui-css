@@ -40,14 +40,18 @@ All colors are OKLCH. Use OKLCH in your custom theme.
 
 ### Surfaces (layered backgrounds)
 
-| Variable        | Use                                                                 |
-| --------------- | ------------------------------------------------------------------- |
-| `--C-SURFACE-0` | Most foreground / most-elevated (usually on top of a popover scrim) |
-| `--C-SURFACE-1` | Cards, navbar                                                       |
-| `--C-SURFACE-2` | Slightly deeper containers                                          |
-| `--C-SURFACE-3` | Deepest container, often used for inputs/recessed regions           |
+The scale is **separation from `--C-CANVAS`, ascending**: `0` sits closest to the page background, `3` furthest from it. That is the whole invariant, and it is the one to author against — the _lightness_ direction is yours. A light theme runs white → light gray; a dark theme runs dark → slightly lighter. So `--C-SURFACE-0` is the lightest of the four in a light theme and the darkest in a dark one, and both are correct.
 
-For light themes these typically run from white → light gray. For dark themes, dark → slightly lighter shades.
+| Variable        | Use                                                                                         |
+| --------------- | ------------------------------------------------------------------------------------------- |
+| `--C-SURFACE-0` | Closest to the canvas. Floating panels — dialogs, popovers, menus — and resting input fills |
+| `--C-SURFACE-1` | One step off. Cards, navbar, sidebar                                                        |
+| `--C-SURFACE-2` | Two steps. Containers nested inside those; hover washes                                     |
+| `--C-SURFACE-3` | Furthest from the canvas. The most recessed regions — tracks, wells, disabled fills         |
+
+**A surface number is not an elevation.** A dialog is not "above" a card because its number is lower — in a dark theme its fill is _darker_ than the card's. Elevation is carried by `--SHADOW-*` and `--C-BORDER-DEFAULT`, which point the same way in every theme; the surface number only says how far a region is nested from the page. Two things on the same rung are meant to look alike, so separate them with a border or a shadow, never by borrowing a neighbouring rung.
+
+Plan for adjacent rungs being a **weak** cue either way: one step measures 1.02–1.07:1 across the four measured themes. You can spread the numbers further apart in your own theme, but nothing should depend on a single step being visible.
 
 ### Text
 
@@ -78,6 +82,20 @@ Each status has a foreground color and a tinted background:
 | `--C-STATUS-SUCCESS` | `--C-STATUS-SUCCESS-BG` |
 | `--C-STATUS-WARNING` | `--C-STATUS-WARNING-BG` |
 | `--C-STATUS-INFO`    | `--C-STATUS-INFO-BG`    |
+
+### The contrast pairing
+
+A few of the colour tokens above are meant to be used **together**: a fill with the text that sits on it, and each status colour with its tinted background.
+
+| Draw this…                  | …on this                |
+| --------------------------- | ----------------------- |
+| `--C-TEXT-ON-PRIMARY`       | `--C-PRIMARY`           |
+| `--C-TEXT-ON-ACCENT`        | `--C-ACCENT`            |
+| `--C-STATUS-*` (foreground) | `--C-STATUS-*-BG`       |
+
+**The intention.** Each pair is designed to read against _itself_ — the `on-*` text is chosen to be legible on its own fill, and consuming components use these pairings for their defaults. That is the whole of it. It is a **convention, not a measured ratio**: this file names the pairings, never a number, and says nothing about a fill set against a `surface-*`, against `--C-CANVAS`, or over an image. (It is also why a focus ring earns its keep — a fill is only reliably distinct from its _paired text_, not from whatever surface it happens to sit on.)
+
+**You can do whatever you like.** Re-tint any token; the pairing is a default, not a rule the system enforces. Two things to keep in mind if you stray from it: when you redefine a pair, move both so they still read against each other; and when you put a fill token somewhere other than under its paired text — on a surface, over a photo — the pairing says nothing about that, so check the contrast yourself.
 
 ### Typography
 

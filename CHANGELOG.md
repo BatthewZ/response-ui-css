@@ -67,6 +67,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- **`docs/theme-contract.md` gains "The contrast pairing" — base contract text that had only ever existed downstream.** The rule that fill tokens are guaranteed to contrast their _paired_ foreground and **never** a surface was written up in `AGENTS.md` and, at length, in `@batthewz/response-ui-react-components`' copy of the contract, where six of its component pages cite it. It was absent from this file, which is the page a theme author actually reads. Now stated here, in the section the downstream package redirects to.
+- **The surface tokens are documented as a nesting depth, not an elevation — the contract said
+  the wrong thing and consumers had reasoned from it.** `--C-SURFACE-0` was described as "most
+  foreground / most-elevated" and `--C-SURFACE-3` as the "deepest container", which is only true
+  in a light theme. The ramp is **separation from `--C-CANVAS`, ascending**, and its lightness
+  direction reverses: `0` is the lightest of the four in a light theme and the darkest in a dark
+  one, which is why every shipped dark example sets it that way. Elevation is a fixed order, so
+  it cannot live on a scale that flips — give the more-elevated component the lower number and
+  the same composition reads as a raised tile in one theme and as a hole punched in a panel in
+  the other. `docs/theme-contract.md` now states the invariant, states that elevation belongs to
+  `--SHADOW-*` and `--C-BORDER-DEFAULT` (which point the same way in every theme), and warns that
+  one step measures 1.02–1.07:1 across the measured themes so nothing should depend on a step
+  being visible. `src/_theme-template.css` carries the same note next to the values. **No token
+  value changed** — this corrects what the contract claims, not what it ships.
 - **The theme docs lead with authoring, not with the examples.** The README's `## Themes` section
   previously contained only a `setAttribute("data-theme", "grimdark")` snippet, while "Define your own
   theme" sat mis-indented _inside_ the "Four built-in themes" bullet list — so the demos read as the

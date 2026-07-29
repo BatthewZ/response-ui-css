@@ -51,6 +51,9 @@
   --C-ACCENT-HOVER: oklch(0.5 0.22 263);
 
   /* ─── Surfaces (cards, sidebars, popovers) ──────────────────────────────── */
+  /* 0 → 3 is separation from --C-CANVAS, ascending — not elevation. A light
+     theme runs light → dark here; a dark theme runs dark → light. Elevation is
+     --SHADOW-* and --C-BORDER-DEFAULT, which read the same way in both. */
   --C-SURFACE-0: oklch(1 0 0);
   --C-SURFACE-1: oklch(0.98 0 0);
   --C-SURFACE-2: oklch(0.96 0 0);
