@@ -10,16 +10,14 @@
    other rule — CSS requires that of @import, and this file is loaded too late
    to carry them itself.
 
-   `--C-CHART-*` is owned by `@batthewz/response-ui-react-components`, so this
-   theme's chart ramp lives in that package's `examples/theme-tuning` stylesheet,
-   not here.
+   `--C-CHART-*` is not a token this package defines, so no chart ramp is tuned
+   here.
 
    Read this one for the awkward case: it sets `--C-ACCENT` and
-   `--C-STATUS-SUCCESS` to the same neon green, which collapses two chart series
-   into one colour unless the theme also overrides `--C-CHART-*`. Any theme that
-   reuses a colour across two contract tokens inherits that problem. `--C-CHART-*`
-   belongs to @batthewz/response-ui-react-components; the rule lives in that
-   package's docs/theme-contract.md. */
+   `--C-STATUS-SUCCESS` to the same neon green. Any theme that reuses one colour
+   across two contract tokens should expect anything deriving a series of colours
+   from those tokens to collapse two of them into one, and should tune that
+   series wherever it is defined. */
 
 :root[data-theme="tech"] {
   color-scheme: dark;

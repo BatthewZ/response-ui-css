@@ -6,8 +6,7 @@
 
    As with the main entry, no example theme is imported here — see index.css.
 
-   Per-component CSS now lives in `@batthewz/response-ui-react-components`;
-   add `@import "@batthewz/response-ui-react-components/styles";` if you use it. */
+   Per-component CSS is not part of this package — see index.css. */
 
 @import "tailwindcss";
 @import "./tokens/index.css";

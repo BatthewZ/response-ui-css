@@ -187,7 +187,7 @@ This is the normal case, not an advanced one — the example themes were written
 2. `@import` it in `app.css` **after** `@import "@batthewz/response-ui-css";`.
 3. Import your own font faces at the **top of the app's CSS entry**, above the foundation import — never inside the theme file. `@import` must precede all other rules in the flattened stylesheet, and a theme file is loaded after the foundation, so an `@import` there is dropped silently (correct palette, wrong typeface). The main entry loads only the `default` theme's two families; each example theme keeps its own in a sibling `<name>-fonts.css`.
 4. Set `<html data-theme="your-theme">`.
-5. If your theme is dark, or sets two contract tokens to the same colour, and you use `@batthewz/response-ui-react-components` charts, override `--C-CHART-1..5` too. Those tokens belong to that package — its `docs/theme-contract.md` holds the rule, not this package's.
+5. If your theme is dark, or sets two contract tokens to the same colour, check whether anything you build on top derives its own tokens from these — a series of chart colours, say. Those are defined wherever they are defined, not here, and a dark or colour-reusing theme usually has to tune them there as well.
 
 If a theme overrides `--R-SIZE-*` / `--H*` / `--BodyText-*`, mirror the `@media (width >= 40rem)` block from [src/responsive/](src/responsive/) so the responsive bump survives.
 

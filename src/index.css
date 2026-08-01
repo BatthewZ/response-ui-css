@@ -11,9 +11,8 @@
    first — see fonts.css), or copy
    `src/_theme-template.css` and write your own. See docs/theme-contract.md.
 
-   Per-component CSS (Accordion, Button, etc.) lives in
-   `@batthewz/response-ui-react-components` alongside each React component
-   and is imported via `@import "@batthewz/response-ui-react-components/styles";`. */
+   Per-component CSS (Accordion, Button, etc.) is not part of this package.
+   This entry is tokens, responsive scales, animations and base styles only. */
 
 @import "./fonts.css";
 @import "tailwindcss";

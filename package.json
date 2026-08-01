@@ -2,7 +2,7 @@
   "name": "@batthewz/response-ui-css",
   "version": "0.13.0",
   "type": "module",
-  "description": "Design tokens, a theme contract, responsive scales, and animations for the response-ui design system. Tailwind v4 CSS-first. The foundation layer; pairs with @batthewz/response-ui-react-components.",
+  "description": "Design tokens, a theme contract, responsive scales, and animations for the response-ui design system. Tailwind v4 CSS-first. The foundation layer, usable on its own.",
   "sideEffects": [
     "*.css"
   ],

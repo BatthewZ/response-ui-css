@@ -11,9 +11,9 @@
    to carry them itself.
 
    Read it to see what a complete dark theme looks like. Note what is NOT here:
-   `--C-CHART-*` is owned by `@batthewz/response-ui-react-components`, so this
-   theme's chart ramp lives in that package's `examples/theme-tuning` stylesheet.
-   A dark theme needs one — see that package's docs/theme-contract.md. */
+   `--C-CHART-*` is not a token this package defines, so no chart ramp is tuned
+   below. If something downstream of you defines one, a dark theme will want to
+   tune it there, alongside whatever defines it. */
 
 :root[data-theme="grimdark"] {
   color-scheme: dark;
