@@ -4,6 +4,39 @@ All notable changes to `@batthewz/response-ui-css` will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Until 1.0.0, breaking changes will bump the **minor** version.
 
+## [0.14.0] — 2026-08-04
+
+### Added
+
+- **Text selection is now themed: `--C-SELECTION` and `--C-TEXT-ON-SELECTION`, painted by a global
+  `::selection` rule in `src/base.css`.** Selected text was the last piece of the page still
+  rendering at the browser's fixed blue — a colour no theme could reach, sitting on top of every
+  theme's own palette. It now defaults to `var(--C-ACCENT)` / `var(--C-TEXT-ON-ACCENT)`.
+
+  **Aliases, not new literals**, which is what makes it free for theme authors: a theme that retunes
+  the accent moves the highlight with it, and the highlight inherits the accent pair's legibility
+  guarantee rather than needing a fourth measurement per theme. The pair joins the contrast-pairing
+  table in `docs/theme-contract.md` on that basis. Set them only to break the tie with the accent —
+  and move both when you do, exactly as with the other pairs.
+
+  **The rule carries no selector beyond the pseudo-element, and that is the whole local-override
+  story.** `::selection` resolves custom properties against the element the selection originates
+  from, so re-declaring `--C-SELECTION` on a subtree re-tints selection inside it — one rule serves
+  the global default and every scoped variation, and no `selection:*` utility is needed for the
+  common case.
+
+  **It sits in `@layer base`**, alongside the ring-offset default and for the same reason: an
+  unlayered rule outranks Tailwind's `utilities` layer regardless of specificity, which would leave
+  `selection:bg-*` unable to override it.
+
+  **This changes rendered output for every consumer** — selecting text now shows the theme's accent
+  instead of the browser default. **Revert:** delete the `::selection` block from
+  [src/base.css](./src/base.css) and the two tokens from [src/tokens/colors.css](./src/tokens/colors.css).
+
+  No `@theme inline` entry, deliberately: `bg-selection` would be a utility for painting the
+  *highlight colour* as an ordinary background, which is not a thing anyone wants, and it would
+  oblige `@batthewz/response-ui-tw-merge` to carry a name that never conflicts with anything.
+
 ## [0.13.0] — 2026-07-29
 
 ### Breaking

@@ -104,6 +104,13 @@
   /*  package defaults (some on :root, some responsive across breakpoints).    */
   /* ───────────────────────────────────────────────────────────────────────── */
 
+  /* Text selection — these already track the accent pair you set above, which
+     is usually what you want. Set them only to break that tie: an accent too
+     loud to sit behind a paragraph, or a highlight you want off-brand. Move
+     both, so the text still reads on the highlight. */
+  /* --C-SELECTION: oklch(0.55 0.22 263);
+     --C-TEXT-ON-SELECTION: oklch(0.99 0 0); */
+
   /* Radii */
   /* --RADIUS-SM: 0.25rem;
      --RADIUS-MD: 0.5rem;

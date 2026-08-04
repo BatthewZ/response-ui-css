@@ -41,6 +41,14 @@
   --C-STATUS-WARNING-BG: oklch(0.9869 0.0214 95.28);
   --C-STATUS-INFO: oklch(0.5461 0.2152 262.88);
   --C-STATUS-INFO-BG: oklch(0.9705 0.0142 254.6);
+
+  /* Selection — the text-selection highlight, applied by base.css.
+     Aliases the accent pair rather than restating it: a theme retunes
+     --C-ACCENT and the highlight follows, keeping the pairing's legibility
+     guarantee instead of needing its own. Both halves are still overridable,
+     together or singly, by a theme or on any subtree. */
+  --C-SELECTION: var(--C-ACCENT);
+  --C-TEXT-ON-SELECTION: var(--C-TEXT-ON-ACCENT);
 }
 
 /*

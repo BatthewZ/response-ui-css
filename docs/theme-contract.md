@@ -97,6 +97,24 @@ Each status has a foreground color and a tinted background:
 | `--C-STATUS-WARNING` | `--C-STATUS-WARNING-BG` |
 | `--C-STATUS-INFO`    | `--C-STATUS-INFO-BG`    |
 
+### Text selection
+
+| Variable                | Use                                        |
+| ----------------------- | ------------------------------------------ |
+| `--C-SELECTION`         | The highlight painted behind selected text |
+| `--C-TEXT-ON-SELECTION` | Selected text drawn on that highlight      |
+
+Both default to the accent pair — `var(--C-ACCENT)` and `var(--C-TEXT-ON-ACCENT)` — so a theme that only retunes the accent moves the highlight with it, and the pairing below covers it for free. Set them when you want the highlight to differ from the accent; move both when you do.
+
+The package applies them in a single global `::selection` rule. There is nothing to add for a **local** highlight either: `::selection` resolves custom properties against the element the selection originates from, so re-declaring `--C-SELECTION` on a subtree re-tints selection inside it.
+
+```css
+.brochure {
+  --C-SELECTION: oklch(0.85 0.16 95);
+  --C-TEXT-ON-SELECTION: oklch(0.2 0 0);
+}
+```
+
 ### The contrast pairing
 
 A few of the colour tokens above are meant to be used **together**: a fill with the text that sits on it, and each status colour with its tinted background.
@@ -105,6 +123,7 @@ A few of the colour tokens above are meant to be used **together**: a fill with 
 | --------------------------- | ----------------------- |
 | `--C-TEXT-ON-PRIMARY`       | `--C-PRIMARY`           |
 | `--C-TEXT-ON-ACCENT`        | `--C-ACCENT`            |
+| `--C-TEXT-ON-SELECTION`     | `--C-SELECTION`         |
 | `--C-STATUS-*` (foreground) | `--C-STATUS-*-BG`       |
 
 **The intention.** Each pair is designed to read against _itself_ — the `on-*` text is chosen to be legible on its own fill, and consuming components use these pairings for their defaults. That is the whole of it. It is a **convention, not a measured ratio**: this file names the pairings, never a number, and says nothing about a fill set against a `surface-*`, against `--C-CANVAS`, or over an image. (It is also why a focus ring earns its keep — a fill is only reliably distinct from its _paired text_, not from whatever surface it happens to sit on.)

@@ -104,7 +104,7 @@ Full token list and override surface: [docs/theme-contract.md](./docs/theme-cont
 - **Design tokens** — colors (OKLCH), spacing, radii, shadows, motion, overlay, media query breakpoints
 - **Responsive scales** — `--R-SIZE-1..6` spacing and `--H1..H6` / `--BodyText-1..3` text scales that step up at the 40rem (640px) breakpoint
 - **Animations** — fade, scale, morph, scroll-reveal, stagger, view-transitions
-- **Base styles** — resets, heading/body styling driven by the responsive type scale
+- **Base styles** — resets, heading/body styling driven by the responsive type scale, and theme-aware scrollbars and text selection
 - **The `default` theme** — the `:root` token set itself, plus its two font families
 - **A theme contract and template** — everything you need to write your own, plus three worked examples that the package itself does not load
 

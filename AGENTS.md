@@ -175,7 +175,7 @@ Default rule still applies: **use the main entry.** Subpaths exist for the liste
 | [src/responsive/](src/responsive/)                  | `--R-SIZE-*`, `--H*`, `--BodyText-*` + Tailwind aliases                                                       |
 | [src/animations/](src/animations/)                  | Keyframes + `.class` / `animate-*` utilities for fade, scale, morph, scroll-reveal, stagger, view-transitions |
 | [src/examples/](src/examples/)                      | Worked example themes. Sample code — not imported by any entry, not covered by semver, safe to delete        |
-| [src/base.css](src/base.css)                        | Root font setup, theme-aware scrollbars, `dialog[open].no-body-scroll` body-lock                              |
+| [src/base.css](src/base.css)                        | Root font setup, theme-aware scrollbars and text selection, `dialog[open].no-body-scroll` body-lock            |
 
 Strictly the design-system foundation. Ships no React components, no JavaScript.
 

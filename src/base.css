@@ -55,6 +55,30 @@ html {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Text selection                                                     */
+/* ------------------------------------------------------------------ */
+/* The browser default is a fixed blue that ignores the theme entirely.
+   `--C-SELECTION` / `--C-TEXT-ON-SELECTION` default to the accent pair, so
+   this reads as the theme's own highlight and inherits the pair's legibility
+   guarantee rather than inventing one.
+
+   No selector beyond the pseudo-element, deliberately. `::selection` resolves
+   its custom properties against the element the selection originates from, so
+   re-declaring `--C-SELECTION` on a subtree re-tints the highlight *there* —
+   one rule covers both the global default and every local override.
+
+   `@layer base` for the same reason as the ring-offset block above: unlayered,
+   it would outrank Tailwind's `utilities` layer and leave `selection:bg-*`
+   unable to override it despite the higher specificity. */
+
+@layer base {
+  ::selection {
+    background-color: var(--C-SELECTION);
+    color: var(--C-TEXT-ON-SELECTION);
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /*  Global scrollbars                                                  */
 /* ------------------------------------------------------------------ */
 /* Theme-aware scrollbars across the app. Firefox uses scrollbar-color;
