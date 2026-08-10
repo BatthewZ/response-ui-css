@@ -4,6 +4,30 @@ All notable changes to `@batthewz/response-ui-css` will be documented in this fi
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Until 1.0.0, breaking changes will bump the **minor** version.
 
+## [0.15.0] — 2026-08-10
+
+### Fixed
+
+- **`--C-SELECTION` / `--C-TEXT-ON-SELECTION` now track a theme scoped to a subtree, not just one
+  set at `:root`.** The accent alias moved out of the `:root` block in `src/tokens/colors.css` and
+  into the `::selection` rule in `src/base.css` that reads it, as a `var()` fallback:
+  `var(--C-SELECTION, var(--C-ACCENT))`.
+
+  The two forms are not equivalent, which is the whole of the bug. `var()` inside a custom-property
+  *declaration* is substituted at the element the declaration applies to — `:root` — and descendants
+  inherit the resolved colour. So `--C-SELECTION: var(--C-ACCENT)` baked in the root's accent, and a
+  section that retuned `--C-ACCENT` on itself kept the root's highlight. `docs/theme-contract.md`
+  claimed the subtree case worked; it worked only when `--C-SELECTION` itself was the token being
+  re-declared. Written as a fallback the derivation is re-evaluated wherever the selection is
+  painted, so both routes now behave as documented.
+
+  **Nothing moves where a theme is applied at `:root`** — the resolved colour is identical. Two
+  visible consequences if you reach past the `::selection` rule: neither token is declared any
+  more, so `getComputedStyle(document.documentElement).getPropertyValue("--C-SELECTION")` reports
+  the empty string until you set one, and your own `var(--C-SELECTION)` with no fallback now
+  resolves to nothing. Setting either token still wins everywhere, exactly as before — the fallback
+  only fires when the token is unset.
+
 ## [0.14.0] — 2026-08-04
 
 ### Added

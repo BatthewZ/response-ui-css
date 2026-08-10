@@ -46,9 +46,14 @@
      Aliases the accent pair rather than restating it: a theme retunes
      --C-ACCENT and the highlight follows, keeping the pairing's legibility
      guarantee instead of needing its own. Both halves are still overridable,
-     together or singly, by a theme or on any subtree. */
-  --C-SELECTION: var(--C-ACCENT);
-  --C-TEXT-ON-SELECTION: var(--C-TEXT-ON-ACCENT);
+     together or singly, by a theme or on any subtree.
+
+     The alias is written as a var() fallback in that base.css rule, NOT as a
+     declaration here. A declaration here would be substituted against this
+     element's --C-ACCENT and inherit downward already resolved, so a subtree
+     that retunes --C-ACCENT would keep the root's highlight. As a fallback it
+     is re-evaluated wherever the selection is painted, which is what makes the
+     "retune the accent on a subtree" case above actually true. */
 }
 
 /*

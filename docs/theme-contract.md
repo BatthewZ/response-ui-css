@@ -106,6 +106,8 @@ Each status has a foreground color and a tinted background:
 
 Both default to the accent pair — `var(--C-ACCENT)` and `var(--C-TEXT-ON-ACCENT)` — so a theme that only retunes the accent moves the highlight with it, and the pairing below covers it for free. Set them when you want the highlight to differ from the accent; move both when you do.
 
+That default is a `var()` fallback inside the `::selection` rule, not a declaration, so nothing declares these two and `getComputedStyle` reports them empty until you set one. The distinction matters on a **subtree**: a declaration would be substituted against `:root`'s accent and inherit downward already resolved, so a section retuning `--C-ACCENT` would keep the root's highlight. As a fallback it is re-evaluated wherever the selection is painted.
+
 The package applies them in a single global `::selection` rule. There is nothing to add for a **local** highlight either: `::selection` resolves custom properties against the element the selection originates from, so re-declaring `--C-SELECTION` on a subtree re-tints selection inside it.
 
 ```css

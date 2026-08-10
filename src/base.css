@@ -67,14 +67,19 @@ html {
    re-declaring `--C-SELECTION` on a subtree re-tints the highlight *there* —
    one rule covers both the global default and every local override.
 
+   The accent fallback lives here rather than as a `--C-SELECTION` declaration in
+   `tokens/colors.css` for that same resolve-at-the-element reason: declared at
+   `:root` it would bake in the root's accent and inherit downward already
+   resolved, so a subtree retuning `--C-ACCENT` would keep the root's highlight.
+
    `@layer base` for the same reason as the ring-offset block above: unlayered,
    it would outrank Tailwind's `utilities` layer and leave `selection:bg-*`
    unable to override it despite the higher specificity. */
 
 @layer base {
   ::selection {
-    background-color: var(--C-SELECTION);
-    color: var(--C-TEXT-ON-SELECTION);
+    background-color: var(--C-SELECTION, var(--C-ACCENT));
+    color: var(--C-TEXT-ON-SELECTION, var(--C-TEXT-ON-ACCENT));
   }
 }
 

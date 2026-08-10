@@ -36,5 +36,29 @@ the global default *and* every scoped variation: re-declare the token on a subtr
 subtree re-tints. Adding selectors, or a per-scope utility, to achieve that is work the
 cascade was already doing.
 
+## 4. Put an alias's default at the READ, not in a `:root` declaration
+
+Section 2 says a default should alias an existing token. *Where you write that alias* decides
+whether it survives scoped theming, and the two forms look interchangeable.
+
+`var()` inside a custom-property **declaration** is substituted at the element the declaration
+applies to. Declared in the `:root` block, an alias resolves against `:root`'s value once, and
+descendants inherit the resulting *colour* — not the indirection. Re-pointing the upstream token
+further down the tree never re-runs that substitution, so the alias quietly stops tracking the
+thing it aliases for any theme scoped to a subtree.
+
+Write the alias as a fallback at the place that reads it — `var(--THE-TOKEN, var(--THE-SOURCE))`
+— and it is re-evaluated wherever it is painted. Identical where nothing overrides, correct
+where something does, and an explicit override still wins because a fallback only fires when the
+token is unset.
+
+Two things to accept when you do this. The token is then **not declared anywhere**, so
+`getComputedStyle` reports it empty until someone sets it, and a consumer's own
+`var(--THE-TOKEN)` written without a fallback resolves to nothing — so only convert a token
+nothing is expected to read from script, and say so in the changelog either way. And the failure
+this prevents is invisible to a package whose own themes all apply at `:root`: that arrangement
+puts the theme and the alias on the same element, where the cascade resolves the upstream first
+and everything behaves. Scoped theming is the only thing that exposes it.
+
 Related: [contrast-retuning.md](./contrast-retuning.md) for which token pairs carry a
 legibility guarantee and what it costs to move one.
